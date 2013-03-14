@@ -14,6 +14,7 @@ function! dash#check_app_presence()
   let script = s:script
   call system(script)
   let s:dash_present = v:shell_error
+  return s:dash_present
 endfunction
 
 function! dash#run(word, bang)
