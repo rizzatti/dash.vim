@@ -6,6 +6,7 @@ let s:save_cpoptions = &cpoptions
 set cpoptions&vim
 
 let s:initialized = 0
+let s:docsets = []
 
 let s:special_cases = {
       \  "Python 2\npython" : 'python2',
@@ -86,7 +87,7 @@ endfunction
 function! dash#complete(arglead, cmdline, cursorpos) "{{{
   call s:initialize()
   if !s:dash_present
-    return ['']
+    return s:docsets
   endif
   return filter(copy(s:docsets), 'match(v:val, a:arglead) == 0')
 endfunction
@@ -100,6 +101,13 @@ function! dash#run(bang, ...) "{{{
   call s:search(a:000, a:bang ==# '!' ? 1 : 0)
 endfunction
 "}}}
+
+function! dash#available_docsets() "{{{
+  call s:initialize()
+  redraw
+  echo "List of all docset keywords:"
+  echo join(s:docsets)
+endfunction
 
 let &cpoptions = s:save_cpoptions
 unlet s:save_cpoptions

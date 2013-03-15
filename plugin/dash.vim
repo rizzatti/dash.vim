@@ -14,15 +14,13 @@ let loaded_dash = 1
 let s:save_cpoptions = &cpoptions
 set cpoptions&vim
 
-"{{{ dash commands
+"{{{ Dash command
 if exists(':Dash') == 2
   echohl WarningMsg
   echomsg 'dash.vim: could not create command Dash'
   echohl None
 else
-  let definition = 'command -bang -complete=customlist,dash#complete -nargs=* Dash '
-  let callee = 'call dash#run("<bang>", <f-args>)'
-  execute definition callee
+  command -bang -complete=customlist,dash#complete -nargs=* Dash call dash#run("<bang>", <f-args>)
 
   "{{{ <Plug> mappings
   noremap <script> <unique> <Plug>DashFiletype <SID>DashFiletype
@@ -30,6 +28,16 @@ else
   noremap <script> <unique> <Plug>DashGlobal <SID>DashGlobal
   noremap <SID>DashGlobal :Dash!<CR>
   "}}}
+endif
+"}}}
+
+"{{{ DashDocsets command
+if exists(':DashDocsets') == 2
+  echohl WarningMsg
+  echomsg 'dash.vim: could not create command DashDocsets'
+  echohl None
+else
+  command -nargs=0 DashDocsets call dash#available_docsets()
 endif
 "}}}
 
