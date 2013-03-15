@@ -87,4 +87,4 @@ MIT
 [Dash]: http://kapeli.com/
 [pathogen]: https://github.com/tpope/vim-pathogen
 [vim-doc]: http://vim-doc.heroku.com/view?https://raw.github.com/zehrizzatti/dash.vim/master/doc/dash.txt
-[vim-help]: http://vim-doc.heroku.com/view?https://raw.github.com/zehrizzatti/dash.vim/master/doc/dash.txt#DashConfig
+[vim-config]: http://vim-doc.heroku.com/view?https://raw.github.com/zehrizzatti/dash.vim/master/doc/dash.txt#DashConfig
