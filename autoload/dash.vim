@@ -84,6 +84,9 @@ function! dash#complete(arglead, cmdline, cursorpos) "{{{
   if !s:initialized
     call s:initialize()
   endif
+  if !s:dash_present
+    return ['']
+  endif
   return filter(copy(s:docsets), 'match(v:val, a:arglead) == 0')
 endfunction
 "}}}
