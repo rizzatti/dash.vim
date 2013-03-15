@@ -7,6 +7,16 @@ set cpoptions&vim
 
 let s:initialized = 0
 
+let s:special_cases = {
+      \  "Python 2\npython" : 'python2',
+      \  "Python 3\npython" : 'python3',
+      \  "Java SE7\njava" : 'java7',
+      \  "Java SE6\njava" : 'java6',
+      \  "Qt 5\nqt" : 'qt5',
+      \  "Qt 4\nqt" : 'qt4',
+      \  "Cocos3D\ncocos2d" : 'cocos3d'
+      \  }
+
 let s:script = expand('<sfile>:h:h') . '/script/check_for_dash.sh'
 
 function! s:check_for_dash() "{{{
@@ -24,7 +34,7 @@ endfunction
 
 function! s:create_docsets_cache() "{{{
   let plist = system('defaults read com.kapeli.dash docsets')
-  let regex = '\v\{\_.{-}platform \= (\w+);\_.{-}\}'
+  let regex = '\v\{\_.{-}docsetName \= "?([^";]+)"?;\_.{-}(keyword \= "(.+):";\_.{-})?platform \= (\w+);\_.{-}\}'
   let position = 1
   let docsets = []
   while 1
@@ -32,9 +42,16 @@ function! s:create_docsets_cache() "{{{
     if empty(matches)
       break
     endif
-    let name = tolower(get(matches, 1))
-    if index(docsets, name) == -1
-      call add(docsets, name)
+    let name = get(matches, 1)
+    let keyword = get(matches, 3)
+    let platform = get(matches, 4)
+    if empty(keyword)
+      let word = get(s:special_cases, join([name, platform], "\n"), platform)
+    else
+      let word = keyword
+    endif
+    if index(docsets, word) == -1
+      call add(docsets, tolower(word))
     endif
     let position += 1
   endwhile
