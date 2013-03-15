@@ -66,6 +66,10 @@ nmap <silent> <Leader>d <Plug>DashFiletype
 nmap <silent> <Leader>D <Plug>DashGlobal
 ```
 
+## Configuration
+
+Please, check the [help][vim-config].
+
 ## Installation
 
 If you don't have a preferred installation method, I recommend
@@ -83,3 +87,4 @@ MIT
 [Dash]: http://kapeli.com/
 [pathogen]: https://github.com/tpope/vim-pathogen
 [vim-doc]: http://vim-doc.heroku.com/view?https://raw.github.com/zehrizzatti/dash.vim/master/doc/dash.txt
+[vim-help]: http://vim-doc.heroku.com/view?https://raw.github.com/zehrizzatti/dash.vim/master/doc/dash.txt#DashConfig
