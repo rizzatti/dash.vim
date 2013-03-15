@@ -26,9 +26,9 @@ else
 
   "{{{ <Plug> mappings
   noremap <script> <unique> <Plug>DashFiletype <SID>DashFiletype
-  noremap <SID>DashFiletype :Dash <C-r>=expand('<cword>')<CR><CR>
+  noremap <SID>DashFiletype :Dash<CR>
   noremap <script> <unique> <Plug>DashGlobal <SID>DashGlobal
-  noremap <SID>DashGlobal :Dash! <C-r>=expand('<cword>')<CR><CR>
+  noremap <SID>DashGlobal :Dash!<CR>
   "}}}
 endif
 "}}}
