@@ -90,7 +90,9 @@ function! s:search(args, global) "{{{
   if a:global
     let l:docset = ''
   else
-    let l:ft = get(split(&filetype, '\.'), 0)
+    let l:filetypes = split(&filetype, '\.')
+    let l:primary_ft = get(l:filetypes, len(l:filetypes) - 1, '')
+    let l:ft = get(l:filetypes, v:count1 - 1, l:primary_ft)
     let l:docset = get(a:args, 1, l:ft)
     let l:docset = get(s:docset_map, l:docset, l:docset)
     if index(s:docsets, l:docset) == -1

@@ -20,7 +20,7 @@ if exists(':Dash') == 2
   echomsg 'dash.vim: could not create command Dash'
   echohl None
 else
-  command -bang -complete=customlist,dash#complete -nargs=* Dash call dash#run("<bang>", <f-args>)
+  command -bang -complete=customlist,dash#complete -nargs=* -count=1 Dash call dash#run("<bang>", <f-args>)
 
   "{{{ <Plug> mappings
   noremap <script> <unique> <Plug>DashFiletype <SID>DashFiletype
