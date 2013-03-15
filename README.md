@@ -12,16 +12,37 @@ Read the [help][vim-doc] to know more.
 This plugin has one command: `Dash`.
 
 ```
+:Dash
+```
+
+Will search for the word under the cursor in Dash, considering the
+current filetype in Vim.
+
+```
 :Dash String
 ```
 
-Will search for 'String' in Dash, considering the current filetype in Vim.
+Will search for 'String' in Dash, considering the current filetype.
+
+```
+:Dash String ruby
+```
+
+Will search for 'String' in the 'ruby' docset, regardless of the current
+filetype.
+
+Note: You can hit <Tab> to complete the filetype options.
+
+```
+:Dash!
+```
+Will search for the word under the cursor in all docsets (globally).
 
 ```
 :Dash! func
 ```
 
-Will search for 'func' in all Docsets (globally) inside Dash.
+Will search for 'func' in all docsets.
 
 ## Mappings
 
