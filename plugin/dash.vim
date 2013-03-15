@@ -20,8 +20,8 @@ if exists(':Dash') == 2
   echomsg 'dash.vim: could not create command Dash'
   echohl None
 else
-  let definition = 'command -bang -nargs=1 Dash '
-  let callee = 'call dash#run(<f-args>, "<bang>")'
+  let definition = 'command -bang -nargs=? Dash '
+  let callee = 'call dash#run("<bang>", <f-args>)'
   execute definition callee
 
   "{{{ <Plug> mappings

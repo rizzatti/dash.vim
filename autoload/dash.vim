@@ -11,23 +11,26 @@ function! s:check_for_dash() "{{{
   if exists('s:dash_present')
     return s:dash_present
   endif
-  let script = s:script
-  call system(script)
+  let l:script = s:script
+  call system(l:script)
   let s:dash_present = v:shell_error
   return s:dash_present
 endfunction
 "}}}
 
-function! s:search(word, global) "{{{
-  let filetype = ''
-  if !a:global
-    let filetype = &filetype . ':'
+function! s:search(args, global) "{{{
+  let l:word = get(a:args, 0, expand('<cword>'))
+  if a:global
+    let l:ft = ''
+  else
+    let l:ft = get(split(&filetype, '\.'), 0, '')
+    let l:ft = get(a:args, 1, l:ft) . ':'
   endif
-  silent execute '!open dash://' . filetype . a:word
+  silent execute '!open dash://' . l:ft . l:word
 endfunction
 "}}}
 
-function! dash#run(word, bang) "{{{
+function! dash#run(bang, ...) "{{{
   if !s:check_for_dash()
     redraw
     echohl WarningMsg
@@ -35,7 +38,7 @@ function! dash#run(word, bang) "{{{
     echohl None
     return
   endif
-  call s:search(a:word, a:bang ==# '!' ? 1 : 0)
+  call s:search(a:000, a:bang ==# '!' ? 1 : 0)
 endfunction
 "}}}
 
