@@ -22,11 +22,13 @@ CONTENTS                                                      *DashContents*
             2.1.2 :DashDocsets .... |:DashDocsets|
     3. Mappings ................... |DashMappings|
         3.1 Key bindings .......... |DashKeyBindings|
-    4. License .................... |DashLicense|
-    5. Bugs ....................... |DashBugs|
-    6. Contributing ............... |DashContributing|
-    7. Changelog .................. |DashChangelog|
-    8. Credits .................... |DashCredits|
+    4. Configuration .............. |DashConfig|
+        4.1 dash_map .............. |DashConfig_map|
+    5. License .................... |DashLicense|
+    6. Bugs ....................... |DashBugs|
+    7. Contributing ............... |DashContributing|
+    8. Changelog .................. |DashChangelog|
+    9. Credits .................... |DashCredits|
 
 ==============================================================================
 1. Intro                                                           *DashIntro*
@@ -104,12 +106,33 @@ For example, add this to your |.vimrc|:
     Note: Using |:noremap| will not work with <Plug> mappings.
 
 ==============================================================================
-4. License                                                       *DashLicense*
+4. Configuration                                                  *DashConfig*
+
+------------------------------------------------------------------------------
+4.1 g:dash_map                                                *DashConfig_map*
+
+Allows configuration of mappings between Vim filetypes and Dash's docsets.
+
+Example:
+>
+    ; Add this to your ~/.vimrc file:
+    let g:dash_map = {
+        \ 'ruby'       : 'rails',
+        \ 'python'     : 'python2',
+        \ 'javascript' : 'backbone'
+        \ }
+<
+This setting will make searches in filetypes in the 1st column be directed to
+the docsets in the 2nd column in Dash, when they are not specified as the 2nd
+option to :Dash or used through the <Plug> mappings.
+
+==============================================================================
+5. License                                                       *DashLicense*
 
 Released under the MIT License.
 
 ==============================================================================
-5. Bugs                                                             *DashBugs*
+6. Bugs                                                             *DashBugs*
 
 Before submitting a bug report, try upgrading to the latest version of the
 plugin. The bug could have been fixed already.
@@ -123,7 +146,7 @@ been reported already. You can add more information to the issue in case it
 has. Otherwise, submit a new issue.
 
 ==============================================================================
-6. Contributing                                             *DashContributing*
+7. Contributing                                             *DashContributing*
 
 Contributions are welcomed and appreciated. Just follow the normal Github
 procedure. Go to:
@@ -139,7 +162,7 @@ request.
 Refer to CHANGELOG.txt
 
 ==============================================================================
-8. Credits                                                       *DashCredits*
+9. Credits                                                       *DashCredits*
 
 TODO
 
