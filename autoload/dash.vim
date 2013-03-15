@@ -2,9 +2,6 @@
 " Author: Zeh Rizzatti <zehrizzatti@gmail.com>
 " License: MIT
 
-let s:save_cpoptions = &cpoptions
-set cpoptions&vim
-
 let s:docset_map = {
       \ 'python' : 'python2',
       \ 'java' : 'java7'
@@ -26,8 +23,7 @@ let s:special_cases = {
 let s:script = expand('<sfile>:h:h') . '/script/check_for_dash.sh'
 
 function! s:check_for_dash() "{{{
-  let l:script = s:script
-  call system(l:script)
+  call system(s:script)
   let s:dash_present = v:shell_error
   if !s:dash_present
     redraw
@@ -86,22 +82,22 @@ endfunction
 "}}}
 
 function! s:search(args, global) "{{{
-  let l:word = get(a:args, 0, expand('<cword>'))
+  let word = get(a:args, 0, expand('<cword>'))
   if a:global
-    let l:docset = ''
+    let docset = ''
   else
-    let l:filetypes = split(&filetype, '\.')
-    let l:primary_ft = get(l:filetypes, len(l:filetypes) - 1, '')
-    let l:ft = get(l:filetypes, v:count1 - 1, l:primary_ft)
-    let l:docset = get(a:args, 1, l:ft)
-    let l:docset = get(s:docset_map, l:docset, l:docset)
-    if index(s:docsets, l:docset) == -1
-      let l:docset = ''
+    let filetypes = split(&filetype, '\.')
+    let primary_ft = get(filetypes, -1, '')
+    let ft = get(filetypes, v:count1 - 1, primary_ft)
+    let docset = get(a:args, 1, ft)
+    let docset = get(s:docset_map, docset, docset)
+    if index(s:docsets, docset) == -1
+      let docset = ''
     else
-      let l:docset = l:docset . ':'
+      let docset = docset . ':'
     endif
   endif
-  silent execute '!open dash://' . l:docset . l:word
+  silent execute '!open dash://' . docset . word
   redraw!
 endfunction
 "}}}
@@ -130,6 +126,3 @@ function! dash#available_docsets() "{{{
   echo "List of all docset keywords:"
   echo join(s:docsets)
 endfunction
-
-let &cpoptions = s:save_cpoptions
-unlet s:save_cpoptions
