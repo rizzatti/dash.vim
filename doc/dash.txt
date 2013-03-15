@@ -73,6 +73,11 @@ Examples:
     Will search for the word 'printf' in the docset corresponding to the
     current filetype.
     >
+    :Dash setTimeout javascript
+<
+    Will search for the word 'setTimeout' in the 'javascript' docset.
+    Tip: You can use <Tab> to complete the docset names.
+    >
     :Dash!
 <
     Will search for the word under the cursor in all docsets (globally).
