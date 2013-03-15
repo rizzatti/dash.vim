@@ -31,7 +31,7 @@ Will search for 'String' in Dash, considering the current filetype.
 Will search for 'String' in the 'ruby' docset, regardless of the current
 filetype.
 
-Note: You can hit <Tab> to complete the filetype options.
+Note: You can hit `<Tab>` to complete the filetype options.
 
 ```
 :Dash!
