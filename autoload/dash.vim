@@ -5,8 +5,13 @@
 let s:save_cpoptions = &cpoptions
 set cpoptions&vim
 
-let s:initialized = 0
+let s:docset_map = {
+      \ 'python' : 'python2',
+      \ 'java' : 'java7'
+      \ }
+
 let s:docsets = []
+let s:initialized = 0
 
 let s:special_cases = {
       \  "Python 2\npython" : 'python2',
@@ -61,12 +66,21 @@ function! s:create_docsets_cache() "{{{
 endfunction
 "}}}
 
+function! s:extend_docset_map() "{{{
+  if !exists('g:dash_map') || type(g:dash_map) != 4
+    return
+  endif
+  call extend(s:docset_map, g:dash_map)
+endfunction
+"}}}
+
 function! s:initialize() "{{{
   if s:initialized
     return
   endif
   call s:check_for_dash()
   call s:create_docsets_cache()
+  call s:extend_docset_map()
   let s:initialized = 1
 endfunction
 "}}}
@@ -78,6 +92,7 @@ function! s:search(args, global) "{{{
   else
     let l:ft = get(split(&filetype, '\.'), 0)
     let l:docset = get(a:args, 1, l:ft)
+    let l:docset = get(s:docset_map, l:docset, l:docset)
     if index(s:docsets, l:docset) == -1
       let l:docset = ''
     else
