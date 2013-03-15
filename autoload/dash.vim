@@ -76,6 +76,7 @@ function! s:search(args, global) "{{{
     let l:ft = get(a:args, 1, l:ft) . ':'
   endif
   silent execute '!open dash://' . l:ft . l:word
+  redraw!
 endfunction
 "}}}
 
