@@ -61,6 +61,9 @@ endfunction
 "}}}
 
 function! s:initialize() "{{{
+  if s:initialized
+    return
+  endif
   call s:check_for_dash()
   call s:create_docsets_cache()
   let s:initialized = 1
@@ -81,9 +84,7 @@ endfunction
 "}}}
 
 function! dash#complete(arglead, cmdline, cursorpos) "{{{
-  if !s:initialized
-    call s:initialize()
-  endif
+  call s:initialize()
   if !s:dash_present
     return ['']
   endif
@@ -92,9 +93,7 @@ endfunction
 "}}}
 
 function! dash#run(bang, ...) "{{{
-  if !s:initialized
-    call s:initialize()
-  endif
+  call s:initialize()
   if !s:dash_present
     return
   endif
