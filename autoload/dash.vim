@@ -63,7 +63,7 @@ function! dash#complete(arglead, cmdline, cursorpos) "{{{
   if !s:initialized
     call s:initialize()
   endif
-  return s:docsets
+  return filter(copy(s:docsets), 'match(v:val, a:arglead) == 0')
 endfunction
 "}}}
 
