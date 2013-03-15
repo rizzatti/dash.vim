@@ -5,7 +5,7 @@ app, making API lookups simple.
 
 It provides a new :Dash command and (recommended) mappings.
 
-Read the (TODO :) [help][vim-doc] to know more.
+Read the [help][vim-doc] to know more.
 
 ## Commands
 
