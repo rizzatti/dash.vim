@@ -32,10 +32,13 @@ function! s:create_docsets_cache() "{{{
     if empty(matches)
       break
     endif
-    let name = get(matches, 1)
-    call add(docsets, name)
+    let name = tolower(get(matches, 1))
+    if index(docsets, name) == -1
+      call add(docsets, name)
+    endif
     let position += 1
   endwhile
+  call sort(docsets)
   let s:docsets = docsets
 endfunction
 "}}}
