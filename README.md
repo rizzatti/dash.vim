@@ -9,7 +9,7 @@ Read the [help][vim-doc] to know more.
 
 ## Commands
 
-This plugin has one command: `Dash`.
+### :Dash
 
 ```
 :Dash
@@ -31,7 +31,7 @@ Will search for 'String' in Dash, considering the current filetype.
 Will search for 'String' in the 'ruby' docset, regardless of the current
 filetype.
 
-Note: You can hit `<Tab>` to complete the filetype options.
+Tip: You can hit `<Tab>` to complete the docset name.
 
 ```
 :Dash!
@@ -43,6 +43,10 @@ Will search for the word under the cursor in all docsets (globally).
 ```
 
 Will search for 'func' in all docsets.
+
+### :DashDocsets
+
+Shows a message listing all docset keywords available in the system.
 
 ## Mappings
 

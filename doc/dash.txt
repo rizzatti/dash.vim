@@ -19,6 +19,7 @@ CONTENTS                                                      *DashContents*
     2. Usage ...................... |DashUsage|
         2.1 Commands .............. |DashCommands|
             2.1.1 :Dash[!] ........ |:Dash|
+            2.1.2 :DashDocsets .... |:DashDocsets|
     3. Mappings ................... |DashMappings|
         3.1 Key bindings .......... |DashKeyBindings|
     4. License .................... |DashLicense|
@@ -77,6 +78,11 @@ Examples:
     :Dash! func
 <
     Will search for 'func' in all docsets.
+
+------------------------------------------------------------------------------
+2.1.1 :DashDocsets                                              *:DashDocsets*
+
+Shows a list of all docsets keywords available in the system.
 
 ==============================================================================
 3. Mappings                                                     *DashMappings*
