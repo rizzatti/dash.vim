@@ -20,7 +20,7 @@ if exists(':Dash') == 2
   echomsg 'dash.vim: could not create command Dash'
   echohl None
 else
-  let definition = 'command -bang -complete=filetype -nargs=* Dash '
+  let definition = 'command -bang -complete=customlist,dash#complete -nargs=* Dash '
   let callee = 'call dash#run("<bang>", <f-args>)'
   execute definition callee
 

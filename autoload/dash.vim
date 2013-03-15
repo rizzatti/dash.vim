@@ -59,6 +59,14 @@ function! s:search(args, global) "{{{
 endfunction
 "}}}
 
+function! dash#complete(arglead, cmdline, cursorpos) "{{{
+  if !s:initialized
+    call s:initialize()
+  endif
+  return s:docsets
+endfunction
+"}}}
+
 function! dash#run(bang, ...) "{{{
   if !s:initialized
     call s:initialize()
