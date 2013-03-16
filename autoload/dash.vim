@@ -119,6 +119,20 @@ function! dash#complete(arglead, cmdline, cursorpos) "{{{
 endfunction
 "}}}
 
+function! dash#get_docsets() "{{{
+  call s:initialize()
+  redraw
+  echo 'Dash settings for the current buffer:'
+  if exists('b:dash_docsets')
+    echo 'Docsets: ' . join(b:dash_docsets)
+  endif
+  let primary_ft = get(split(&filetype, '\.'), -1, '')
+  let docset = get(s:docset_map, primary_ft, primary_ft)
+  let docset = index(s:docsets, docset) == -1 ? 'global' : docset
+  echo 'Filetype: ' . primary_ft . ' => ' . docset
+endfunction
+"}}}
+
 function! dash#list_docsets() "{{{
   call s:initialize()
   redraw

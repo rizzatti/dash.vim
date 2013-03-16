@@ -31,7 +31,17 @@ else
 endif
 "}}}
 
-"{{{ DashDocsets command
+"{{{ DashGetDocsets command
+if exists(':DashGetDocsets') == 2
+  echohl WarningMsg
+  echomsg 'dash.vim: could not create command DashGetDocsets'
+  echohl None
+else
+  command -nargs=0 DashGetDocsets call dash#get_docsets()
+endif
+"}}}
+
+"{{{ DashListDocsets command
 if exists(':DashListDocsets') == 2
   echohl WarningMsg
   echomsg 'dash.vim: could not create command DashListDocsets'
