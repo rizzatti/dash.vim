@@ -70,6 +70,23 @@ function! s:extend_docset_map() "{{{
 endfunction
 "}}}
 
+function! s:get_docset(docset) "{{{
+  if !empty(a:docset) && index(s:docsets, a:docset) >= 0
+    return a:docset
+  endif
+  let position = v:count1 - 1
+  let filetypes = split(&filetype, '\.')
+  let primary_ft = get(filetypes, -1, '')
+  if exists('b:dash_docsets')
+    let docset = get(b:dash_docsets, position, primary_ft)
+  else
+    let docset = get(filetypes, position, primary_ft)
+  endif
+  let docset = get(s:docset_map, docset, docset)
+  return index(s:docsets, docset) == -1 ? '' : docset . ':'
+endfunction
+"}}}
+
 function! s:initialize() "{{{
   if s:initialized
     return
@@ -86,16 +103,7 @@ function! s:search(args, global) "{{{
   if a:global
     let docset = ''
   else
-    let filetypes = split(&filetype, '\.')
-    let primary_ft = get(filetypes, -1, '')
-    let ft = get(filetypes, v:count1 - 1, primary_ft)
-    let docset = get(a:args, 1, ft)
-    let docset = get(s:docset_map, docset, docset)
-    if index(s:docsets, docset) == -1
-      let docset = ''
-    else
-      let docset = docset . ':'
-    endif
+    let docset = s:get_docset(get(a:args, 1, ''))
   endif
   silent execute '!open dash://' . docset . word
   redraw!
