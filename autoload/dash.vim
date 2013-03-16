@@ -102,6 +102,14 @@ function! s:search(args, global) "{{{
 endfunction
 "}}}
 
+function! dash#available_docsets() "{{{
+  call s:initialize()
+  redraw
+  echo "List of all docset keywords:"
+  echo join(s:docsets)
+endfunction
+"}}}
+
 function! dash#complete(arglead, cmdline, cursorpos) "{{{
   call s:initialize()
   if !s:dash_present
@@ -120,9 +128,10 @@ function! dash#run(bang, ...) "{{{
 endfunction
 "}}}
 
-function! dash#available_docsets() "{{{
+function! dash#set_docsets(...) "{{{
   call s:initialize()
-  redraw
-  echo "List of all docset keywords:"
-  echo join(s:docsets)
+  let docsets = copy(a:000)
+  call filter(docsets, 'index(s:docsets, v:val) != -1')
+  let b:dash_docsets = docsets
 endfunction
+"}}}

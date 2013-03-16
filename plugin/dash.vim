@@ -41,5 +41,15 @@ else
 endif
 "}}}
 
+"{{{ DashDocsets command
+if exists(':DashSetDocsets') == 2
+  echohl WarningMsg
+  echomsg 'dash.vim: could not create command DashSetDocsets'
+  echohl None
+else
+  command -complete=customlist,dash#complete -nargs=* DashSetDocsets call dash#set_docsets(<f-args>)
+endif
+"}}}
+
 let &cpoptions = s:save_cpoptions
 unlet s:save_cpoptions
