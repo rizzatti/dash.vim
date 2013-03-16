@@ -110,17 +110,14 @@ function! s:search(args, global) "{{{
 endfunction
 "}}}
 
-function! dash#complete(arglead, cmdline, cursorpos) "{{{
-  call s:initialize()
-  if !s:dash_present
-    return s:docsets
-  endif
-  return filter(copy(s:docsets), 'match(v:val, a:arglead) == 0')
+function! s:set_docsets(args) "{{{
+  let docsets = copy(a:args)
+  call filter(docsets, 'index(s:docsets, v:val) != -1')
+  let b:dash_docsets = docsets
 endfunction
 "}}}
 
-function! dash#get_docsets() "{{{
-  call s:initialize()
+function! s:show_docsets() "{{{
   redraw
   echo 'Dash settings for the current buffer:'
   if exists('b:dash_docsets')
@@ -133,10 +130,29 @@ function! dash#get_docsets() "{{{
 endfunction
 "}}}
 
+function! dash#complete(arglead, cmdline, cursorpos) "{{{
+  call s:initialize()
+  if !s:dash_present
+    return s:docsets
+  endif
+  return filter(copy(s:docsets), 'match(v:val, a:arglead) == 0')
+endfunction
+"}}}
+
+function! dash#docsets(...) "{{{
+  call s:initialize()
+  if a:0
+    call s:set_docsets(a:000)
+  else
+    call s:show_docsets()
+  endif
+endfunction
+"}}}
+
 function! dash#list_docsets() "{{{
   call s:initialize()
   redraw
-  echo "List of all docset keywords:"
+  echo "List of all docsets:"
   echo join(s:docsets)
 endfunction
 "}}}
@@ -147,13 +163,5 @@ function! dash#run(bang, ...) "{{{
     return
   endif
   call s:search(a:000, a:bang ==# '!' ? 1 : 0)
-endfunction
-"}}}
-
-function! dash#set_docsets(...) "{{{
-  call s:initialize()
-  let docsets = copy(a:000)
-  call filter(docsets, 'index(s:docsets, v:val) != -1')
-  let b:dash_docsets = docsets
 endfunction
 "}}}
