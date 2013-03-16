@@ -16,10 +16,10 @@
 CONTENTS                                                      *DashContents*
 
     1. Intro ...................... |DashIntro|
-    2. Usage ...................... |DashUsage|
-        2.1 Commands .............. |DashCommands|
-            2.1.1 :Dash[!] ........ |:Dash|
-            2.1.2 :DashDocsets .... |:DashDocsets|
+    2.1 Commands .................. |DashCommands|
+        2.1 :Dash[!] .............. |:Dash|
+        2.2 :DashDocsets .......... |:DashDocsets|
+        2.2 :DashListDocsets ...... |:DashListDocsets|
     3. Mappings ................... |DashMappings|
         3.1 Key bindings .......... |DashKeyBindings|
     4. Configuration .............. |DashConfig|
@@ -45,17 +45,12 @@ Having the docs for the word under the cursor, from inside Vim, is just
 priceless. This is what this plugin is about.
 
 ==============================================================================
-2. Usage                                                           *DashUsage*
-
-This plugin respects user's settings and will not create any of the described
-commands in case they already exist. A message will be displayed if it is
-unable to do so. Check |:messages|.
+2. Commands                                                     *DashCommands*
 
 ------------------------------------------------------------------------------
-2.1. Commands                                                   *DashCommands*
+2.1 :Dash[!]                                                           *:Dash*
 
-------------------------------------------------------------------------------
-2.1.1 :Dash[!]                                                         *:Dash*
+Searches for the terms given in specific docsets or in all of them.
 
 Usage:
     >
@@ -76,6 +71,7 @@ Examples:
     :Dash setTimeout javascript
 <
     Will search for the word 'setTimeout' in the 'javascript' docset.
+
     Tip: You can use <Tab> to complete the docset names.
     >
     :Dash!
@@ -87,9 +83,31 @@ Examples:
     Will search for 'func' in all docsets.
 
 ------------------------------------------------------------------------------
-2.1.1 :DashDocsets                                              *:DashDocsets*
+2.2 :DashDocsets                                                *:DashDocsets*
 
-Shows a list of all docsets keywords available in the system.
+This command can be used to set docsets to be used to the current buffer. It
+will also show the current settings for the buffer if no arguments are given.
+
+Examples:
+    >
+    :DashDocsets backbone underscore javascript
+<
+    Sets the prefered docsets for lookup for the current buffer, in the given
+    order. Any following usages of |:Dash| where the 2nd argument is not
+    provided will use default to searching 'backbone's docset.
+
+    Tip: If you have bound <Plug>DashDocset, as in the example below, hitting
+    '2<Leader>d' will search the 2nd docset ('underscore') and '3<Leader>d'
+    will search the 3rd docset ('javascript'), for this example.
+    >
+    :DashDocsets
+<
+    Shows the docsets configuration for the current buffer.
+
+------------------------------------------------------------------------------
+2.3 :DashListDocsets                                        *:DashListDocsets*
+
+Shows a list of all docsets found in Dash.app, using their search keywords.
 
 ==============================================================================
 3. Mappings                                                     *DashMappings*
@@ -99,14 +117,14 @@ Shows a list of all docsets keywords available in the system.
 
 This plugin provides helpful mappings for common use cases.
 
-<Plug>DashFiletype    Searches for the |word| under the cursor, considering
+<Plug>DashDocset      Searches for the |word| under the cursor, considering
                         the current filetype for docset lookup.
 
 <Plug>DashGlobal      Searches for the |word| under the cursor in all docsets.
 
 For example, add this to your |.vimrc|:
     >
-    :nmap <silent> <leader>d <Plug>DashFiletype
+    :nmap <silent> <leader>d <Plug>DashDocset
 <
     Note: Using |:noremap| will not work with <Plug> mappings.
 
@@ -120,7 +138,6 @@ Allows configuration of mappings between Vim filetypes and Dash's docsets.
 
 Example:
 >
-    ; Add this to your ~/.vimrc file:
     let g:dash_map = {
         \ 'ruby'       : 'rails',
         \ 'python'     : 'python2',
@@ -129,7 +146,7 @@ Example:
 <
 This setting will make searches in filetypes in the 1st column be directed to
 the docsets in the 2nd column in Dash, when they are not specified as the 2nd
-option to :Dash or used through the <Plug> mappings.
+option to |:Dash| or used through the <Plug> mappings.
 
 ==============================================================================
 5. License                                                       *DashLicense*
