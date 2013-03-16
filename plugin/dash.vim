@@ -47,7 +47,7 @@ if exists(':DashSetDocsets') == 2
   echomsg 'dash.vim: could not create command DashSetDocsets'
   echohl None
 else
-  command -complete=customlist,dash#complete -nargs=* DashSetDocsets call dash#set_docsets(<f-args>)
+  command -complete=customlist,dash#complete -nargs=+ DashSetDocsets call dash#set_docsets(<f-args>)
 endif
 "}}}
 
