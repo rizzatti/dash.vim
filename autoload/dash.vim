@@ -72,7 +72,7 @@ endfunction
 
 function! s:get_docset(docset) "{{{
   if !empty(a:docset) && index(s:docsets, a:docset) >= 0
-    return a:docset
+    return a:docset . ':'
   endif
   let position = v:count1 - 1
   let filetypes = split(&filetype, '\.')
