@@ -161,7 +161,7 @@ plugin. The bug could have been fixed already.
 
 If the problem persists, go to:
 
-    https://github.com/zehrizzatti/dash.vim/issues
+    https://github.com/rizzatti/dash.vim/issues
 
 Check the list of open issues and see if the problem you are facing has not
 been reported already. You can add more information to the issue in case it
@@ -173,7 +173,7 @@ has. Otherwise, submit a new issue.
 Contributions are welcomed and appreciated. Just follow the normal Github
 procedure. Go to:
 
-    https://github.com/zehrizzatti/dash.vim
+    https://github.com/rizzatti/dash.vim
 
 Fork the project. Work on what you think would make it better. Send a pull
 request.

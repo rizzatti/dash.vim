@@ -1,5 +1,5 @@
 " Description: Search Dash.app from vim
-" Author: Zeh Rizzatti <zehrizzatti@gmail.com>
+" Author: José Otávio Rizzatti <zehrizzatti@gmail.com>
 " License: MIT
 
 if exists('loaded_dash') || &compatible || v:version < 700

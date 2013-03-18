@@ -16,7 +16,7 @@ installing [pathogen.vim][pathogen], and then simply copy and paste:
 
 ```bash
 cd ~/.vim/bundle
-git clone https://github.com/zehrizzatti/dash.vim.git
+git clone https://github.com/rizzatti/dash.vim.git
 ```
 
 ## License
@@ -25,4 +25,4 @@ MIT
 
 [Dash]: http://kapeli.com/
 [pathogen]: https://github.com/tpope/vim-pathogen
-[vim-doc]: http://vim-doc.heroku.com/view?https://raw.github.com/zehrizzatti/dash.vim/master/doc/dash.txt
+[vim-doc]: http://vim-doc.heroku.com/view?https://raw.github.com/rizzatti/dash.vim/master/doc/dash.txt
