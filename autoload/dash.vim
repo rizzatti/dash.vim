@@ -2,6 +2,33 @@
 " Author: José Otávio Rizzatti <zehrizzatti@gmail.com>
 " License: MIT
 
+"{{{ Creates dummy versions of entry points if Dash.app is not present
+function! s:check_for_dash()
+  let script = expand('<sfile>:h:h') . '/script/check_for_dash.sh'
+  call system(script)
+  if v:shell_error " script returns 1 == Dash is present
+    return
+  endif
+
+  function! s:dummy()
+    redraw
+    echohl WarningMsg
+    echomsg 'dash.vim: Dash.app does not seem to be installed.'
+    echohl None
+  endfunction
+
+  function! dash#complete(args)
+    call s:dummy()
+  endfunction
+
+  function! dash#settings()
+    call s:dummy()
+  endfunction
+
+  finish
+endfunction
+"}}}
+
 let s:cache = dash#cache#class.new()
 
 function! dash#complete(arglead, cmdline, cursorpos) "{{{
@@ -38,18 +65,6 @@ let s:docset_map = {
       \ 'python' : 'python2',
       \ 'java' : 'java7'
       \ }
-
-function! s:check_for_dash() "{{{
-  call system(s:script)
-  let s:dash_present = v:shell_error
-  if !s:dash_present
-    redraw
-    echohl WarningMsg
-    echomsg 'dash.vim: Dash.app does not seem to be installed.'
-    echohl None
-  endif
-endfunction
-"}}}
 
 function! s:extend_docset_map() "{{{
   if !exists('g:dash_map') || type(g:dash_map) != 4
