@@ -1,18 +1,19 @@
-let s:plist = funcoo#plist#module
 let s:docset = dash#docset#class
+let s:plist = funcoo#plist#module
 let s:profile = dash#profile#class
 
 let s:class = funcoo#object#class.extend()
 let s:proto = {}
 
 function! s:proto.constructor() dict abort "{{{
-  call self.createDocsetList()
-  call self.createDocsetPathMap()
-  call self.createProfileList()
+  call self._createDocsetList()
+  call self._createDocsetPathMap()
+  call self._createProfileList()
+  let self._keywords = []
 endfunction
 "}}}
 
-function! s:proto.createDocsetList() dict abort "{{{
+function! s:proto._createDocsetList() dict abort "{{{
   let docsetList = eval(s:plist.read('com.kapeli.dash docsets'))
   let docsets = []
   for docset in docsetList
@@ -22,16 +23,16 @@ function! s:proto.createDocsetList() dict abort "{{{
 endfunction
 "}}}
 
-function! s:proto.createDocsetPathMap() dict abort "{{{
+function! s:proto._createDocsetPathMap() dict abort "{{{
   let paths = {}
   for docset in self.docsets
     let paths[docset.path] = docset
   endfor
-  let self.pathMap = paths
+  let self._pathMap = paths
 endfunction
 "}}}
 
-function! s:proto.createProfileList() dict abort "{{{
+function! s:proto._createProfileList() dict abort "{{{
   let profileList = eval(s:plist.read('com.kapeli.dash profiles'))
   let profiles = []
   for profile in profileList
@@ -44,11 +45,22 @@ function! s:proto.createProfileList() dict abort "{{{
       endfor
       let keyword = get(trigger, 'keyword', '')
       let name = get(profile, 'name', 'No name')
-      let docsets = map(get(profile, 'docsets', []), 'self.pathMap[v:val]')
+      let docsets = map(get(profile, 'docsets', []), 'self._pathMap[v:val]')
       call add(profiles, s:profile.new(name, keyword, docsets))
     endif
   endfor
   let self.profiles = profiles
+endfunction
+"}}}
+
+function! s:proto.keywords() dict abort "{{{
+  if !empty(self._keywords)
+    return self._keywords
+  endif
+  call extend(self._keywords, map(self.profiles, "v:val.keyword"))
+  call extend(self._keywords, map(self.docsets, "v:val.keyword()"))
+  call sort(self._keywords)
+  return self._keywords
 endfunction
 "}}}
 
