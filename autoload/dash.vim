@@ -17,15 +17,19 @@ function! s:check_for_dash()
     echohl None
   endfunction
 
-  function! dash#complete(args)
+  function! dash#complete(...)
     call s:dummy()
   endfunction
 
-  function! dash#keywords(args)
+  function! dash#keywords(...)
     call s:dummy()
   endfunction
 
-  function! dash#settings()
+  function! dash#search(...)
+    call s:dummy()
+  endfunction
+
+  function! dash#settings(...)
     call s:dummy()
   endfunction
 
@@ -34,6 +38,11 @@ endfunction
 "}}}
 
 let s:cache = dash#cache#class.new()
+
+let s:keywords_map = {
+      \ 'python' : 'python2',
+      \ 'java' : 'java7'
+      \ }
 
 function! dash#complete(arglead, cmdline, cursorpos) "{{{
   return filter(copy(s:cache.keywords()), 'match(v:val, a:arglead) == 0')
@@ -44,6 +53,30 @@ function! dash#keywords(args) "{{{
   let keywords = copy(a:args)
   call filter(keywords, 'index(s:cache.keywords(), v:val) != -1')
   let b:dash_keywords = keywords
+endfunction
+"}}}
+
+function! dash#search(bang, ...) "{{{
+  let term = get(a:000, 0, expand('<cword>'))
+  if !empty(a:bang) " global search
+    call s:search(term, '')
+    return
+  endif
+  let keyword = get(a:000, 1, '')
+  if !empty(keyword) " keyword given
+    let keyword = index(s:cache.keywords(), keyword) != -1 ? keyword : ''
+    call s:search(term, keyword)
+    return
+  endif
+  let position = v:count1 - 1
+  let filetype = get(split(&filetype, '\.'), -1, '')
+  if exists('b:dash_keywords')
+    let keyword = get(b:dash_keywords, position, filetype)
+  else
+    let keyword = get(s:keyword_map, filetype, filetype)
+  endif
+  let keyword = index(s:cache.keywords(), keyword) != -1 ? keyword : ''
+  call s:search(term, keyword)
 endfunction
 "}}}
 
@@ -59,66 +92,22 @@ function! dash#settings() "{{{
 endfunction
 "}}}
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-let s:docset_map = {
-      \ 'python' : 'python2',
-      \ 'java' : 'java7'
-      \ }
-
-function! s:extend_docset_map() "{{{
+function! s:extend_keywords_map() "{{{
   if !exists('g:dash_map') || type(g:dash_map) != 4
     return
   endif
-  call extend(s:docset_map, g:dash_map)
+  call extend(s:keywords_map, g:dash_map)
 endfunction
 "}}}
 
-function! s:get_docset(docset) "{{{
-  if !empty(a:docset) && index(s:docsets, a:docset) >= 0
-    return a:docset . ':'
+function! s:search(term, keyword) "{{{
+  let keyword = a:keyword
+  if !empty(keyword)
+    let keyword = keyword . ':'
   endif
-  let position = v:count1 - 1
-  let filetypes = split(&filetype, '\.')
-  let primary_ft = get(filetypes, -1, '')
-  if exists('b:dash_docsets')
-    let docset = get(b:dash_docsets, position, primary_ft)
-  else
-    let docset = get(filetypes, position, primary_ft)
-  endif
-  let docset = get(s:docset_map, docset, docset)
-  return index(s:docsets, docset) == -1 ? '' : docset . ':'
-endfunction
-"}}}
-
-function! s:search(args, global) "{{{
-  let word = get(a:args, 0, expand('<cword>'))
-  if a:global
-    let docset = ''
-  else
-    let docset = s:get_docset(get(a:args, 1, ''))
-  endif
-  silent execute '!open dash://' . docset . word
+  silent execute '!open dash://' . keyword . a:term
   redraw!
 endfunction
 "}}}
 
-function! dash#run(bang, ...) "{{{
-  call s:initialize()
-  if !s:dash_present
-    return
-  endif
-  call s:search(a:000, a:bang ==# '!' ? 1 : 0)
-endfunction
-"}}}
+call s:extend_keywords_map()
