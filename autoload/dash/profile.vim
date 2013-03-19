@@ -3,7 +3,7 @@ let s:proto = {}
 
 function! s:proto.constructor(name, keyword, docsets) dict abort "{{{
   let self.name = a:name
-  let self.keyword = substitute(a:keyword, ':', '', '')
+  let self.keyword = tolower(substitute(a:keyword, ':', '', ''))
   let self.docsets = a:docsets
 endfunction
 "}}}

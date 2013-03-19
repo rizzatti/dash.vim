@@ -39,7 +39,8 @@ endfunction
 "}}}
 
 function! s:proto.keyword() dict abort "{{{
-  return empty(self._keyword) ? self._platform : self._keyword
+  let value = empty(self._keyword) ? self._platform : self._keyword
+  return tolower(value)
 endfunction
 "}}}
 
