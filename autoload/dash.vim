@@ -49,8 +49,8 @@ function! dash#complete(arglead, cmdline, cursorpos) "{{{
 endfunction
 "}}}
 
-function! dash#keywords(args) "{{{
-  let keywords = copy(a:args)
+function! dash#keywords(...) "{{{
+  let keywords = copy(a:000)
   call filter(keywords, 'index(s:cache.keywords(), v:val) != -1')
   let b:dash_keywords = keywords
 endfunction
@@ -73,7 +73,7 @@ function! dash#search(bang, ...) "{{{
   if exists('b:dash_keywords')
     let keyword = get(b:dash_keywords, position, filetype)
   else
-    let keyword = get(s:keyword_map, filetype, filetype)
+    let keyword = get(s:keywords_map, filetype, filetype)
   endif
   let keyword = index(s:cache.keywords(), keyword) != -1 ? keyword : ''
   call s:search(term, keyword)
@@ -83,7 +83,7 @@ endfunction
 function! dash#settings() "{{{
   redraw
   for profile in s:cache.profiles
-    let docsets = join(map(profile.docsets, "v:val.name"), ', ')
+    let docsets = join(map(copy(profile.docsets), "v:val.name"), ', ')
     echo 'Profile: ' . profile.name . '; Docsets: ' . docsets
   endfor
   for docset in s:cache.docsets
