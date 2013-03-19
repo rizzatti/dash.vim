@@ -1,4 +1,13 @@
 let s:class = funcoo#object#class.extend()
+
+function! s:class.sort(left, right) dict abort "{{{
+  if a:left.name == a:right.name
+    return 0
+  endif
+  return a:left.name > a:right.name ? 1 : -1
+endfunction
+"}}}
+
 let s:proto = {}
 
 let s:special_cases = {
@@ -33,7 +42,6 @@ function! s:proto.keyword() dict abort "{{{
   return empty(self._keyword) ? self._platform : self._keyword
 endfunction
 "}}}
-
 
 call s:class.include(s:proto)
 

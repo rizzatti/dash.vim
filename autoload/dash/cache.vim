@@ -19,6 +19,7 @@ function! s:proto._createDocsetList() dict abort "{{{
   for docset in docsetList
     call add(docsets, s:docset.new(docset))
   endfor
+  call sort(docsets, s:docset.sort, s:docset)
   let self.docsets = docsets
 endfunction
 "}}}
