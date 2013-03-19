@@ -9,6 +9,18 @@ function! dash#complete(arglead, cmdline, cursorpos) "{{{
 endfunction
 "}}}
 
+function! dash#settings() "{{{
+  redraw
+  for profile in s:cache.profiles
+    let docsets = join(map(profile.docsets, "v:val.name"), ', ')
+    echo 'Profile: ' . profile.name . '; Docsets: ' . docsets
+  endfor
+  for docset in s:cache.docsets
+    echo 'Docset: ' . docset.name . '; Keyword: ' . docset.keyword()
+  endfor
+endfunction
+"}}}
+
 
 
 
