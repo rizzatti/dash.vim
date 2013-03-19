@@ -14,6 +14,18 @@ let loaded_dash = 1
 let s:save_cpoptions = &cpoptions
 set cpoptions&vim
 
+"{{{ Load funcoo.vim
+if !exists('g:loaded_funcoo')
+  let funcoo = findfile('plugin/funcoo.vim', &runtimepath)
+  if empty(funcoo)
+    echohl WarningMsg
+    echomsg 'dash.vim: dependencies are not met. please install funcoo.vim'
+    echohl None
+    finish
+  endif
+endif
+"}}}
+
 "{{{ Dash command
 if exists(':Dash') == 2
   echohl WarningMsg
