@@ -1,4 +1,4 @@
- Copyright (c) 2013 Zeh Rizzatti
+ Copyright (c) 2013 José Otávio Rizzatti
 
 MIT License
 

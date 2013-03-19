@@ -1,3 +1,7 @@
+" Description: Search Dash.app from Vim
+" Author: José Otávio Rizzatti <zehrizzatti@gmail.com>
+" License: MIT
+
 let s:class = funcoo#object#class.extend()
 let s:proto = {}
 

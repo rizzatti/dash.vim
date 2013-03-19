@@ -1,4 +1,4 @@
-" Description: Search Dash.app from vim
+" Description: Search Dash.app from Vim
 " Author: José Otávio Rizzatti <zehrizzatti@gmail.com>
 " License: MIT
 

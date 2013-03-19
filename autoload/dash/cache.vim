@@ -1,3 +1,7 @@
+" Description: Search Dash.app from Vim
+" Author: José Otávio Rizzatti <zehrizzatti@gmail.com>
+" License: MIT
+
 let s:docset = dash#docset#class
 let s:plist = funcoo#plist#module
 let s:profile = dash#profile#class
