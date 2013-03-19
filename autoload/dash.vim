@@ -2,6 +2,26 @@
 " Author: José Otávio Rizzatti <zehrizzatti@gmail.com>
 " License: MIT
 
+let s:cache = dash#cache#class.new()
+
+function! dash#complete(arglead, cmdline, cursorpos) "{{{
+  return filter(copy(s:cache.keywords()), 'match(v:val, a:arglead) == 0')
+endfunction
+"}}}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 let s:docset_map = {
       \ 'python' : 'python2',
       \ 'java' : 'java7'
@@ -127,15 +147,6 @@ function! s:show_docsets() "{{{
   let docset = get(s:docset_map, primary_ft, primary_ft)
   let docset = index(s:docsets, docset) == -1 ? 'global' : docset
   echo 'Filetype: ' . primary_ft . ' => ' . docset
-endfunction
-"}}}
-
-function! dash#complete(arglead, cmdline, cursorpos) "{{{
-  call s:initialize()
-  if !s:dash_present
-    return s:docsets
-  endif
-  return filter(copy(s:docsets), 'match(v:val, a:arglead) == 0')
 endfunction
 "}}}
 
