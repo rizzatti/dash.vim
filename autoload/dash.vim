@@ -84,7 +84,8 @@ function! dash#settings() "{{{
   redraw
   for profile in s:cache.profiles
     let docsets = join(map(copy(profile.docsets), "v:val.name"), ', ')
-    echo 'Profile: ' . profile.name . '; Docsets: ' . docsets
+    echo 'Profile: ' . profile.name . '; Keyword: ' . profile.keyword .
+          \ '; Docsets: ' . docsets
   endfor
   for docset in s:cache.docsets
     echo 'Docset: ' . docset.name . '; Keyword: ' . docset.keyword()
