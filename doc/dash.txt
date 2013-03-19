@@ -18,8 +18,8 @@ CONTENTS                                                      *DashContents*
     1. Intro ...................... |DashIntro|
     2.1 Commands .................. |DashCommands|
         2.1 :Dash[!] .............. |:Dash|
-        2.2 :DashDocsets .......... |:DashDocsets|
-        2.2 :DashListDocsets ...... |:DashListDocsets|
+        2.2 :DashKeywords ......... |:DashKeywords|
+        2.2 :DashSettings ......... |:DashSettings|
     3. Mappings ................... |DashMappings|
         3.1 Key bindings .......... |DashKeyBindings|
     4. Configuration .............. |DashConfig|
@@ -50,11 +50,13 @@ priceless. This is what this plugin is about.
 ------------------------------------------------------------------------------
 2.1 :Dash[!]                                                           *:Dash*
 
-Searches for the terms given in specific docsets or in all of them.
+Searches for the given term in specific docsets or in all of them. A keyword
+is a specific setting configured in Dash.app's Preferences that associates
+either either to a docset or a profile to a group of docsets.
 
 Usage:
     >
-    :Dash[!] [WORD]
+    :Dash[!] [TERM] [KEYWORD]
 <
 Examples:
     >
@@ -72,7 +74,7 @@ Examples:
 <
     Will search for the word 'setTimeout' in the 'javascript' docset.
 
-    Tip: You can use <Tab> to complete the docset names.
+    Tip: You can use <Tab> to complete the keyword names.
     >
     :Dash!
 <
@@ -83,31 +85,29 @@ Examples:
     Will search for 'func' in all docsets.
 
 ------------------------------------------------------------------------------
-2.2 :DashDocsets                                                *:DashDocsets*
+2.2 :DashKeywords                                              *:DashKeywords*
 
-This command can be used to set docsets to be used to the current buffer. It
-will also show the current settings for the buffer if no arguments are given.
+This command can be used to set keywords to be used in the current buffer.
 
 Examples:
     >
-    :DashDocsets backbone underscore javascript
+    :DashKeywords backbone underscore javascript
 <
     Sets the prefered docsets for lookup for the current buffer, in the given
     order. Any following usages of |:Dash| where the 2nd argument is not
     provided will use default to searching 'backbone's docset.
 
-    Tip: If you have bound <Plug>DashDocset, as in the example below, hitting
+    Tip: If you have bound <Plug>DashSearch, as in the example below, hitting
     '2<Leader>d' will search the 2nd docset ('underscore') and '3<Leader>d'
     will search the 3rd docset ('javascript'), for this example.
-    >
-    :DashDocsets
-<
-    Shows the docsets configuration for the current buffer.
 
 ------------------------------------------------------------------------------
-2.3 :DashListDocsets                                        *:DashListDocsets*
+2.3 :DashSettings                                              *:DashSettings*
 
-Shows a list of all docsets found in Dash.app, using their search keywords.
+Shows a summary of the following settings in Dash.app:
+
+* List of profiles triggered by keyword search and the docsets searched in it.
+* List of docsets and keyword used to search inside it.
 
 ==============================================================================
 3. Mappings                                                     *DashMappings*
@@ -117,14 +117,16 @@ Shows a list of all docsets found in Dash.app, using their search keywords.
 
 This plugin provides helpful mappings for common use cases.
 
-<Plug>DashDocset      Searches for the |word| under the cursor, considering
-                        the current filetype for docset lookup.
+<Plug>DashSearch            Searches for the |word| under the cursor,
+                              considering the current keyword setup for
+                              docset lookup.
 
-<Plug>DashGlobal      Searches for the |word| under the cursor in all docsets.
+<Plug>DashGlobalSearch      Searches for the |word| under the cursor in all
+                              docsets.
 
 For example, add this to your |.vimrc|:
     >
-    :nmap <silent> <leader>d <Plug>DashDocset
+    :nmap <silent> <leader>d <Plug>DashSearch
 <
     Note: Using |:noremap| will not work with <Plug> mappings.
 
