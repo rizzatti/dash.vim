@@ -1,7 +1,7 @@
 # dash.vim
 
-This Vim plugin will search for terms using the excellent [Dash][Dash]
-app, making API lookups simple.
+This Vim plugin will search for terms using the excellent [Dash.app][Dash]
+, making API lookups simple.
 
 It provides a new :Dash family of commands and (recommended) mappings.
 
@@ -11,7 +11,7 @@ Read the [help][vim-doc] to know more.
 
 ## Installation
 
-### Using [Vundle][vundle]
+### Using [Vundle][vundle]:
 
 Just add this 2 lines to your `~/.vimrc`:
 
@@ -22,7 +22,7 @@ Bundle 'rizzatti/dash.vim'
 
 And run `:BundleInstall` inside Vim.
 
-### Using [pathogen.vim][pathogen]
+### Using [pathogen.vim][pathogen]:
 
 Copy and paste in your shell:
 
