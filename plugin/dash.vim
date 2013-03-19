@@ -20,34 +20,34 @@ if exists(':Dash') == 2
   echomsg 'dash.vim: could not create command Dash'
   echohl None
 else
-  command -bang -complete=customlist,dash#complete -nargs=* -count=1 Dash call dash#run("<bang>", <f-args>)
+  command -bang -complete=customlist,dash#complete -nargs=* -count=1 Dash call dash#search("<bang>", <f-args>)
 
   "{{{ <Plug> mappings
-  noremap <script> <unique> <Plug>DashDocset <SID>DashDocset
-  noremap <SID>DashDocset :Dash<CR>
-  noremap <script> <unique> <Plug>DashGlobal <SID>DashGlobal
-  noremap <SID>DashGlobal :Dash!<CR>
+  noremap <script> <unique> <Plug>DashSearch <SID>DashSearch
+  noremap <SID>DashSearch :Dash<CR>
+  noremap <script> <unique> <Plug>DashGlobalSearch <SID>DashGlobalSearch
+  noremap <SID>DashGlobalSearch :Dash!<CR>
   "}}}
 endif
 "}}}
 
-"{{{ DashGetDocsets command
-if exists(':DashDocsets') == 2
+"{{{ DashKeywords command
+if exists(':DashKeywords') == 2
   echohl WarningMsg
-  echomsg 'dash.vim: could not create command DashDocsets'
+  echomsg 'dash.vim: could not create command DashKeywords'
   echohl None
 else
-  command -complete=customlist,dash#complete -nargs=* DashDocsets call dash#docsets(<f-args>)
+  command -complete=customlist,dash#complete -nargs=+ DashKeywords call dash#keywords(<f-args>)
 endif
 "}}}
 
-"{{{ DashListDocsets command
-if exists(':DashListDocsets') == 2
+"{{{ DashSettings command
+if exists(':DashSettings') == 2
   echohl WarningMsg
-  echomsg 'dash.vim: could not create command DashListDocsets'
+  echomsg 'dash.vim: could not create command DashSettings'
   echohl None
 else
-  command -nargs=0 DashListDocsets call dash#list_docsets()
+  command -nargs=0 DashSettings call dash#settings()
 endif
 "}}}
 
