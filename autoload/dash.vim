@@ -21,6 +21,10 @@ function! s:check_for_dash()
     call s:dummy()
   endfunction
 
+  function! dash#keywords(args)
+    call s:dummy()
+  endfunction
+
   function! dash#settings()
     call s:dummy()
   endfunction
@@ -33,6 +37,13 @@ let s:cache = dash#cache#class.new()
 
 function! dash#complete(arglead, cmdline, cursorpos) "{{{
   return filter(copy(s:cache.keywords()), 'match(v:val, a:arglead) == 0')
+endfunction
+"}}}
+
+function! dash#keywords(args) "{{{
+  let keywords = copy(a:args)
+  call filter(keywords, 'index(s:cache.keywords(), v:val) != -1')
+  let b:dash_keywords = keywords
 endfunction
 "}}}
 
