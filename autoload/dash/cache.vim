@@ -44,7 +44,7 @@ function! s:proto._createProfileList() dict abort "{{{
     let triggers = get(profile, 'triggers', [])
     if !empty(triggers)
       for trigger in triggers
-        if trigger.isKeywordTrigger
+        if get(trigger, 'isKeywordTrigger')
           break
         endif
       endfor
