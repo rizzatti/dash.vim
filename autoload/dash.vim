@@ -106,7 +106,7 @@ function! s:search(term, keyword) "{{{
   if !empty(keyword)
     let keyword = keyword . ':'
   endif
-  silent execute '!open dash://' . keyword . a:term
+  silent execute '!open dash://' . shellescape(keyword . a:term)
   redraw!
 endfunction
 "}}}
