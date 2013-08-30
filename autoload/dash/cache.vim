@@ -62,8 +62,8 @@ function! s:proto.keywords() dict abort "{{{
   if !empty(self._keywords)
     return self._keywords
   endif
-  call extend(self._keywords, map(self.profiles, "v:val.keyword"))
-  call extend(self._keywords, map(self.docsets, "v:val.keyword()"))
+  call extend(self._keywords, map(copy(self.profiles), "v:val.keyword"))
+  call extend(self._keywords, map(copy(self.docsets), "v:val.keyword()"))
   call sort(self._keywords)
   return self._keywords
 endfunction
