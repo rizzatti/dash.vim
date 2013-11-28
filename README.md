@@ -32,6 +32,15 @@ git clone https://github.com/rizzatti/funcoo.vim.git
 git clone https://github.com/rizzatti/dash.vim.git
 ```
 
+### Using [vpm](https://github.com/KevinSjoberg/vpm)
+
+Run these two commands in your shell:
+
+```bash
+vpm insert rizzatti/funcoo.vim
+vpm insert rizzatti/dash.vim
+```
+
 ## License
 
 MIT
