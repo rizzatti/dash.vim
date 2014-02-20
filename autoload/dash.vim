@@ -58,25 +58,31 @@ endfunction
 
 function! dash#search(bang, ...) "{{{
   let term = get(a:000, 0, expand('<cword>'))
+  let keywords = []
   if !empty(a:bang) " global search
-    call s:search(term, '')
+    call s:search(term, keywords)
     return
   endif
   let keyword = get(a:000, 1, '')
   if !empty(keyword) " keyword given
-    let keyword = index(s:cache.keywords(), keyword) != -1 ? keyword : ''
-    call s:search(term, keyword)
-    return
-  endif
-  let position = v:count1 - 1
-  let filetype = get(split(&filetype, '\.'), -1, '')
-  if exists('b:dash_keywords')
-    let keyword = get(b:dash_keywords, position, filetype)
+    call add(keywords, keyword)
   else
-    let keyword = get(s:keywords_map, filetype, filetype)
+    let filetype = get(split(&filetype, '\.'), -1, '')
+    if exists('b:dash_keywords')
+      if v:count == 0
+        let keywords = b:dash_keywords
+      else
+        let position = v:count1 - 1
+        let keyword = get(b:dash_keywords, position, filetype)
+        call add(keywords, keyword)
+      endif
+    else
+      let keyword = get(s:keywords_map, filetype, filetype)
+      call add(keywords, keyword)
+    endif
   endif
-  let keyword = index(s:cache.keywords(), keyword) != -1 ? keyword : ''
-  call s:search(term, keyword)
+  call filter(keywords, 'index(s:cache.keywords(), v:val) != -1')
+  call s:search(term, keywords)
 endfunction
 "}}}
 
@@ -101,12 +107,14 @@ function! s:extend_keywords_map() "{{{
 endfunction
 "}}}
 
-function! s:search(term, keyword) "{{{
-  let keyword = a:keyword
-  if !empty(keyword)
-    let keyword = keyword . ':'
+function! s:search(term, keywords) "{{{
+  let keys = ''
+  if !empty(a:keywords)
+    let keys = 'keys=' . join(a:keywords, ',') . '&'
   endif
-  silent execute '!open dash://' . shellescape(keyword . a:term)
+  let query = 'query=' . a:term
+  let url = 'dash-plugin://' . shellescape(keys . query)
+  silent execute '!open ' . url
   redraw!
 endfunction
 "}}}
