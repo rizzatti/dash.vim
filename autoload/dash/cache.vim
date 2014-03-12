@@ -23,7 +23,10 @@ function! s:proto._createDocsetList() dict abort "{{{
   for docset in docsetList
     call add(docsets, s:docset.new(docset))
   endfor
-  call sort(docsets, s:docset.sort, s:docset)
+  try
+    call sort(docsets, s:docset.sort, s:docset)
+  catch /^Vim\%((\a\+)\)\=:E118/
+  endtry
   let self.docsets = docsets
 endfunction
 "}}}
