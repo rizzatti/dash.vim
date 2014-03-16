@@ -49,7 +49,7 @@ if exists(':DashKeywords') == 2
   echomsg 'dash.vim: could not create command DashKeywords'
   echohl None
 else
-  command -complete=customlist,dash#complete -nargs=+ DashKeywords call dash#keywords(<f-args>)
+  command -complete=customlist,dash#complete -nargs=* DashKeywords call dash#keywords(<f-args>)
 endif
 "}}}
 

@@ -50,9 +50,11 @@ endfunction
 "}}}
 
 function! dash#keywords(...) "{{{
-  let keywords = copy(a:000)
-  call filter(keywords, 'index(s:cache.keywords(), v:val) != -1')
-  let b:dash_keywords = keywords
+  if a:0 == 0
+    call s:show_buffer_keywords()
+  else
+    call s:set_buffer_keywords(a:000)
+  endif
 endfunction
 "}}}
 
@@ -116,6 +118,23 @@ function! s:search(term, keywords) "{{{
   let url = 'dash-plugin://' . shellescape(keys . query)
   silent execute '!open ' . url
   redraw!
+endfunction
+"}}}
+
+function! s:set_buffer_keywords(keyword_list) "{{{
+  let keywords = copy(a:keyword_list)
+  call filter(keywords, 'index(s:cache.keywords(), v:val) != -1')
+  let b:dash_keywords = keywords
+endfunction
+"}}}
+
+function! s:show_buffer_keywords() "{{{
+  redraw
+  if !exists("b:dash_keywords") || empty(b:dash_keywords)
+    echo "There are no keywords set for the current buffer."
+  else
+    echo "Keywords: " . join(b:dash_keywords, " ")
+  endif
 endfunction
 "}}}
 
