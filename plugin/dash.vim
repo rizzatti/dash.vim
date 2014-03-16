@@ -63,5 +63,10 @@ else
 endif
 "}}}
 
+if !exists('g:dash_autocommands')
+  let g:dash_autocommands = 1
+  call dash#autocommands()
+endif
+
 let &cpoptions = s:save_cpoptions
 unlet s:save_cpoptions
