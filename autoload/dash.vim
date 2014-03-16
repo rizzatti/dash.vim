@@ -89,7 +89,7 @@ let s:default_keywords = {
 
 function! dash#add_keywords_for_filetype(filetype) "{{{
   let keywords = get(s:default_keywords, a:filetype, [])
-  call s:set_buffer_keywords(keywords)
+  call s:add_buffer_keywords(keywords)
 endfunction
 "}}}
 
@@ -116,7 +116,7 @@ function! dash#keywords(...) "{{{
   if a:0 == 0
     call s:show_buffer_keywords()
   else
-    call s:set_buffer_keywords(a:000)
+    call s:add_buffer_keywords(a:000)
   endif
 endfunction
 "}}}
@@ -164,6 +164,17 @@ function! dash#settings() "{{{
 endfunction
 "}}}
 
+function! s:add_buffer_keywords(keyword_list) "{{{
+  let keywords = copy(a:keyword_list)
+  call filter(keywords, 'index(s:cache.keywords(), v:val) != -1')
+  if exists('b:dash_keywords')
+    call extend(b:dash_keywords, keywords)
+    return
+  endif
+  let b:dash_keywords = keywords
+endfunction
+"}}}
+
 function! s:extend_keywords_map() "{{{
   if !exists('g:dash_map') || type(g:dash_map) != 4
     return
@@ -181,13 +192,6 @@ function! s:search(term, keywords) "{{{
   let url = 'dash-plugin://' . shellescape(keys . query)
   silent execute '!open ' . url
   redraw!
-endfunction
-"}}}
-
-function! s:set_buffer_keywords(keyword_list) "{{{
-  let keywords = copy(a:keyword_list)
-  call filter(keywords, 'index(s:cache.keywords(), v:val) != -1')
-  let b:dash_keywords = keywords
 endfunction
 "}}}
 
