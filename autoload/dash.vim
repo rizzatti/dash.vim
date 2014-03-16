@@ -17,8 +17,13 @@ function! s:check_for_dash()
     echohl None
   endfunction
 
+  function! dash#add_keywords_for_filetype(...)
+  endfunction
+
+  function! dash#autocommands(...)
+  endfunction
+
   function! dash#complete(...)
-    call s:dummy()
   endfunction
 
   function! dash#keywords(...)
@@ -39,10 +44,29 @@ endfunction
 
 let s:cache = dash#cache#class.new()
 
-let s:keywords_map = {
-      \ 'python' : 'python2',
-      \ 'java' : 'java7'
-      \ }
+let s:aliases = dash#defaults#module.aliases
+
+let s:groups = dash#defaults#module.groups
+
+function! dash#add_keywords_for_filetype(filetype) "{{{
+  let keywords = get(s:groups, a:filetype, [])
+  call s:add_buffer_keywords(keywords)
+endfunction
+"}}}
+
+function! dash#autocommands() "{{{
+  if g:dash_autocommands != 1
+    return
+  endif
+  augroup DashVim
+    autocmd!
+    for pair in items(s:groups)
+      let filetype = pair[0]
+      execute "autocmd FileType " .  filetype . " call dash#add_keywords_for_filetype('" . filetype . "')"
+    endfor
+  augroup END
+endfunction
+"}}}
 
 function! dash#complete(arglead, cmdline, cursorpos) "{{{
   return filter(copy(s:cache.keywords()), 'match(v:val, a:arglead) == 0')
@@ -50,9 +74,11 @@ endfunction
 "}}}
 
 function! dash#keywords(...) "{{{
-  let keywords = copy(a:000)
-  call filter(keywords, 'index(s:cache.keywords(), v:val) != -1')
-  let b:dash_keywords = keywords
+  if a:0 == 0
+    call s:show_buffer_keywords()
+  else
+    call s:add_buffer_keywords(a:000)
+  endif
 endfunction
 "}}}
 
@@ -77,7 +103,7 @@ function! dash#search(bang, ...) "{{{
         call add(keywords, keyword)
       endif
     else
-      let keyword = get(s:keywords_map, filetype, filetype)
+      let keyword = get(s:aliases, filetype, filetype)
       call add(keywords, keyword)
     endif
   endif
@@ -99,11 +125,22 @@ function! dash#settings() "{{{
 endfunction
 "}}}
 
-function! s:extend_keywords_map() "{{{
+function! s:add_buffer_keywords(keyword_list) "{{{
+  let keywords = map(copy(a:keyword_list), 'get(s:aliases, v:val, v:val)')
+  call filter(keywords, 'index(s:cache.keywords(), v:val) != -1')
+  if exists('b:dash_keywords')
+    call extend(b:dash_keywords, keywords)
+    return
+  endif
+  let b:dash_keywords = keywords
+endfunction
+"}}}
+
+function! s:extend_aliases() "{{{
   if !exists('g:dash_map') || type(g:dash_map) != 4
     return
   endif
-  call extend(s:keywords_map, g:dash_map)
+  call extend(s:aliases, g:dash_map)
 endfunction
 "}}}
 
@@ -119,4 +156,14 @@ function! s:search(term, keywords) "{{{
 endfunction
 "}}}
 
-call s:extend_keywords_map()
+function! s:show_buffer_keywords() "{{{
+  redraw
+  if !exists("b:dash_keywords") || empty(b:dash_keywords)
+    echo "There are no keywords set for the current buffer."
+  else
+    echo "Keywords: " . join(b:dash_keywords, " ")
+  endif
+endfunction
+"}}}
+
+call s:extend_aliases()
