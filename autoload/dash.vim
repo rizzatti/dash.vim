@@ -45,8 +45,11 @@ endfunction
 let s:cache = dash#cache#class.new()
 
 let s:keywords_map = {
+      \ 'bootstrap' : 'bootstrap3',
+      \ 'java' : 'java7',
       \ 'python' : 'python2',
-      \ 'java' : 'java7'
+      \ 'qt' : 'qt4',
+      \ 'ruby' : 'ruby2'
       \ }
 
 let s:default_keywords = {
@@ -165,7 +168,7 @@ endfunction
 "}}}
 
 function! s:add_buffer_keywords(keyword_list) "{{{
-  let keywords = copy(a:keyword_list)
+  let keywords = map(copy(a:keyword_list), 'get(s:keywords_map, v:val, v:val)')
   call filter(keywords, 'index(s:cache.keywords(), v:val) != -1')
   if exists('b:dash_keywords')
     call extend(b:dash_keywords, keywords)
