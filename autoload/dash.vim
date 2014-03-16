@@ -44,54 +44,12 @@ endfunction
 
 let s:cache = dash#cache#class.new()
 
-let s:keywords_map = {
-      \ 'bootstrap' : 'bootstrap3',
-      \ 'java' : 'java7',
-      \ 'python' : 'python2',
-      \ 'qt' : 'qt4',
-      \ 'ruby' : 'ruby2'
-      \ }
+let s:aliases = dash#defaults#module.aliases
 
-let s:default_keywords = {
-      \ 'actionscript' : ['actionscript'],
-      \ 'c' : ['c', 'glib', 'gl2', 'gl3', 'gl4', 'manpages'],
-      \ 'cpp' : ['cpp', 'net', 'boost', 'qt', 'cvcpp', 'cocos2dx', 'c', 'manpages'],
-      \ 'cs' : ['net', 'mono', 'unity3d'],
-      \ 'cappuccino' : ['cappuccino'],
-      \ 'clojure' : ['clojure'],
-      \ 'coffee' : ['coffee'],
-      \ 'cf' : ['cf'],
-      \ 'css' : ['css', 'bootstrap', 'foundation', 'less', 'cordova', 'phonegap'],
-      \ 'elixir' : ['elixir'],
-      \ 'erlang' : ['erlang'],
-      \ 'go' : ['go'],
-      \ 'haskell' : ['haskell'],
-      \ 'haml' : ['haml'],
-      \ 'html' : ['html', 'svg', 'css', 'bootstrap', 'foundation', 'javascript', 'jquery', 'jqueryui', 'jquerym', 'angularjs', 'backbone', 'marionette', 'meteor', 'moo', 'prototype', 'ember', 'lodash', 'underscore', 'sencha', 'extjs', 'knockout', 'zepto', 'cordova', 'phonegap', 'yui'],
-      \ 'jade' : ['jade'],
-      \ 'java' : ['java', 'javafx', 'grails', 'groovy', 'playjava', 'spring', 'cvj', 'processing'],
-      \ 'javascript' : ['javascript', 'jquery', 'jqueryui', 'jquerym', 'backbone', 'marionette', 'meteor', 'sproutcore', 'moo', 'prototype', 'bootstrap', 'foundation', 'lodash', 'underscore', 'ember', 'sencha', 'extjs', 'titanium', 'knockout', 'zepto', 'yui', 'd3', 'svg', 'dojo', 'coffee', 'nodejs', 'express', 'grunt', 'mongoose', 'chai', 'html', 'css', 'cordova', 'phonegap', 'unity3d'],
-      \ 'less' : ['less'],
-      \ 'lisp' : ['lisp'],
-      \ 'lua' : ['lua', 'corona'],
-      \ 'ocaml' : ['ocaml'],
-      \ 'perl' : ['perl', 'manpages'],
-      \ 'php': ['php', 'wordpress', 'drupal', 'zend', 'laravel', 'yii', 'joomla', 'ee', 'codeigniter', 'cakephp', 'symfony', 'typo3', 'twig', 'smarty', 'html', 'mysql', 'sqlite', 'mongodb', 'psql', 'redis'],
-      \ 'puppet' : ['puppet'],
-      \ 'python' : ['python', 'django', 'twisted', 'sphinx', 'flask', 'cvp'],
-      \ 'r' : ['r'],
-      \ 'ruby' : ['ruby', 'rubygems', 'rails'],
-      \ 'rust' : ['rust'],
-      \ 'sass' : ['sass', 'compass', 'bourbon', 'neat', 'css'],
-      \ 'scala' : ['scala', 'akka', 'playscala'],
-      \ 'sh' : ['bash', 'manpages'],
-      \ 'sql' : ['mysql', 'sqlite', 'psql'],
-      \ 'tcl' : ['tcl'],
-      \ 'yaml' : ['chef', 'ansible']
-      \ }
+let s:groups = dash#defaults#module.groups
 
 function! dash#add_keywords_for_filetype(filetype) "{{{
-  let keywords = get(s:default_keywords, a:filetype, [])
+  let keywords = get(s:groups, a:filetype, [])
   call s:add_buffer_keywords(keywords)
 endfunction
 "}}}
@@ -102,7 +60,7 @@ function! dash#autocommands() "{{{
   endif
   augroup DashVim
     autocmd!
-    for pair in items(s:default_keywords)
+    for pair in items(s:groups)
       let filetype = pair[0]
       execute "autocmd FileType " .  filetype . " call dash#add_keywords_for_filetype('" . filetype . "')"
     endfor
@@ -145,7 +103,7 @@ function! dash#search(bang, ...) "{{{
         call add(keywords, keyword)
       endif
     else
-      let keyword = get(s:keywords_map, filetype, filetype)
+      let keyword = get(s:aliases, filetype, filetype)
       call add(keywords, keyword)
     endif
   endif
@@ -168,7 +126,7 @@ endfunction
 "}}}
 
 function! s:add_buffer_keywords(keyword_list) "{{{
-  let keywords = map(copy(a:keyword_list), 'get(s:keywords_map, v:val, v:val)')
+  let keywords = map(copy(a:keyword_list), 'get(s:aliases, v:val, v:val)')
   call filter(keywords, 'index(s:cache.keywords(), v:val) != -1')
   if exists('b:dash_keywords')
     call extend(b:dash_keywords, keywords)
@@ -178,11 +136,11 @@ function! s:add_buffer_keywords(keyword_list) "{{{
 endfunction
 "}}}
 
-function! s:extend_keywords_map() "{{{
+function! s:extend_aliases() "{{{
   if !exists('g:dash_map') || type(g:dash_map) != 4
     return
   endif
-  call extend(s:keywords_map, g:dash_map)
+  call extend(s:aliases, g:dash_map)
 endfunction
 "}}}
 
@@ -208,4 +166,4 @@ function! s:show_buffer_keywords() "{{{
 endfunction
 "}}}
 
-call s:extend_keywords_map()
+call s:extend_aliases()
