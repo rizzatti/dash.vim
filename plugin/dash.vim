@@ -19,7 +19,7 @@ if !exists('g:loaded_funcoo')
   let funcoo = findfile('plugin/funcoo.vim', &runtimepath)
   if empty(funcoo)
     echohl WarningMsg
-    echomsg 'dash.vim: dependencies are not met. please install funcoo.vim'
+    echomsg 'dash.vim: dependencies are not met. Please install funcoo.vim'
     echohl None
     finish
   endif
