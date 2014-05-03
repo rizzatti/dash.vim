@@ -58,13 +58,15 @@ function! dash#autocommands() "{{{
   if g:dash_autocommands != 1
     return
   endif
-  augroup DashVim
-    autocmd!
-    for pair in items(s:groups)
-      let filetype = pair[0]
-      execute "autocmd FileType " .  filetype . " call dash#add_keywords_for_filetype('" . filetype . "')"
-    endfor
-  augroup END
+  if has('autocmd')
+    augroup DashVim
+      autocmd!
+      for pair in items(s:groups)
+        let filetype = pair[0]
+        execute "autocmd FileType " .  filetype . " call dash#add_keywords_for_filetype('" . filetype . "')"
+      endfor
+    augroup END
+  endif
 endfunction
 "}}}
 
