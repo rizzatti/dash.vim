@@ -53,16 +53,6 @@ else
 endif
 "}}}
 
-"{{{ DashSettings command
-if exists(':DashSettings') == 2
-  echohl WarningMsg
-  echomsg 'dash.vim: could not create command DashSettings'
-  echohl None
-else
-  command -nargs=0 DashSettings call dash#settings()
-endif
-"}}}
-
 if !exists('g:dash_autocommands')
   let g:dash_autocommands = 1
   call dash#autocommands()

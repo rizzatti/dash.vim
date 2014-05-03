@@ -34,10 +34,6 @@ function! s:check_for_dash()
     call s:dummy()
   endfunction
 
-  function! dash#settings(...)
-    call s:dummy()
-  endfunction
-
   finish
 endfunction
 "}}}
@@ -109,27 +105,12 @@ function! dash#search(bang, ...) "{{{
       call add(keywords, keyword)
     endif
   endif
-  call filter(keywords, 'index(s:cache.keywords(), v:val) != -1')
   call s:search(term, keywords)
-endfunction
-"}}}
-
-function! dash#settings() "{{{
-  redraw
-  for profile in s:cache.profiles
-    let docsets = join(map(copy(profile.docsets), "v:val.name"), ', ')
-    echo 'Profile: ' . profile.name . '; Keyword: ' . profile.keyword .
-          \ '; Docsets: ' . docsets
-  endfor
-  for docset in s:cache.docsets
-    echo 'Docset: ' . docset.name . '; Keyword: ' . docset.keyword()
-  endfor
 endfunction
 "}}}
 
 function! s:add_buffer_keywords(keyword_list) "{{{
   let keywords = map(copy(a:keyword_list), 'get(s:aliases, v:val, v:val)')
-  call filter(keywords, 'index(s:cache.keywords(), v:val) != -1')
   if exists('b:dash_keywords')
     call extend(b:dash_keywords, keywords)
     return
