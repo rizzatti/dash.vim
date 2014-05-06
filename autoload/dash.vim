@@ -38,8 +38,6 @@ function! s:check_for_dash()
 endfunction
 "}}}
 
-let s:cache = dash#cache#class.new()
-
 let s:aliases = dash#defaults#module.aliases
 
 let s:groups = dash#defaults#module.groups
@@ -67,7 +65,7 @@ endfunction
 "}}}
 
 function! dash#complete(arglead, cmdline, cursorpos) "{{{
-  return filter(copy(s:cache.keywords()), 'match(v:val, a:arglead) == 0')
+  return []
 endfunction
 "}}}
 
