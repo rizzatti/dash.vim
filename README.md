@@ -20,7 +20,6 @@ Read the [help][vim-doc] to know more.
 Just add this 2 lines to your `~/.vimrc`:
 
 ```vim
-Bundle 'rizzatti/funcoo.vim'
 Bundle 'rizzatti/dash.vim'
 ```
 
@@ -32,7 +31,6 @@ Copy and paste in your shell:
 
 ```bash
 cd ~/.vim/bundle
-git clone https://github.com/rizzatti/funcoo.vim.git
 git clone https://github.com/rizzatti/dash.vim.git
 ```
 
@@ -41,7 +39,6 @@ git clone https://github.com/rizzatti/dash.vim.git
 Run these two commands in your shell:
 
 ```bash
-vpm insert rizzatti/funcoo.vim
 vpm insert rizzatti/dash.vim
 ```
 
