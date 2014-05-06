@@ -38,8 +38,6 @@ function! s:check_for_dash()
 endfunction
 "}}}
 
-let s:aliases = dash#defaults#module.aliases
-
 let s:groups = dash#defaults#module.groups
 
 function! dash#add_keywords_for_filetype(filetype) "{{{
@@ -92,36 +90,28 @@ function! dash#search(bang, ...) "{{{
     let filetype = get(split(&filetype, '\.'), -1, '')
     if exists('b:dash_keywords')
       if v:count == 0
-        let keywords = b:dash_keywords
+        call add(keywords, filetype)
+        call extend(keywords, b:dash_keywords)
       else
         let position = v:count1 - 1
         let keyword = get(b:dash_keywords, position, filetype)
         call add(keywords, keyword)
       endif
     else
-      let keyword = get(s:aliases, filetype, filetype)
-      call add(keywords, keyword)
+      call add(keywords, filetype)
     endif
   endif
-  call s:search(term, keywords)
+  call s:search(term, uniq(sort(keywords)))
 endfunction
 "}}}
 
 function! s:add_buffer_keywords(keyword_list) "{{{
-  let keywords = map(copy(a:keyword_list), 'get(s:aliases, v:val, v:val)')
+  let keywords = a:keyword_list
   if exists('b:dash_keywords')
     call extend(b:dash_keywords, keywords)
     return
   endif
   let b:dash_keywords = keywords
-endfunction
-"}}}
-
-function! s:extend_aliases() "{{{
-  if !exists('g:dash_map') || type(g:dash_map) != 4
-    return
-  endif
-  call extend(s:aliases, g:dash_map)
 endfunction
 "}}}
 
@@ -146,5 +136,3 @@ function! s:show_buffer_keywords() "{{{
   endif
 endfunction
 "}}}
-
-call s:extend_aliases()
