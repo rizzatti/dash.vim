@@ -4,14 +4,6 @@
 
 let s:module = {}
 
-let s:module.aliases = {
-      \ 'bootstrap' : 'bootstrap3',
-      \ 'java' : 'java7',
-      \ 'python' : 'python2',
-      \ 'qt' : 'qt4',
-      \ 'ruby' : 'ruby2'
-      \ }
-
 let s:module.groups = {
       \ 'actionscript' : ['actionscript'],
       \ 'c' : ['c', 'glib', 'gl2', 'gl3', 'gl4', 'manpages'],

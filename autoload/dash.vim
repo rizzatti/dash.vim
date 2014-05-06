@@ -34,17 +34,9 @@ function! s:check_for_dash()
     call s:dummy()
   endfunction
 
-  function! dash#settings(...)
-    call s:dummy()
-  endfunction
-
   finish
 endfunction
 "}}}
-
-let s:cache = dash#cache#class.new()
-
-let s:aliases = dash#defaults#module.aliases
 
 let s:groups = dash#defaults#module.groups
 
@@ -58,18 +50,20 @@ function! dash#autocommands() "{{{
   if g:dash_autocommands != 1
     return
   endif
-  augroup DashVim
-    autocmd!
-    for pair in items(s:groups)
-      let filetype = pair[0]
-      execute "autocmd FileType " .  filetype . " call dash#add_keywords_for_filetype('" . filetype . "')"
-    endfor
-  augroup END
+  if has('autocmd')
+    augroup DashVim
+      autocmd!
+      for pair in items(s:groups)
+        let filetype = pair[0]
+        execute "autocmd FileType " .  filetype . " call dash#add_keywords_for_filetype('" . filetype . "')"
+      endfor
+    augroup END
+  endif
 endfunction
 "}}}
 
 function! dash#complete(arglead, cmdline, cursorpos) "{{{
-  return filter(copy(s:cache.keywords()), 'match(v:val, a:arglead) == 0')
+  return []
 endfunction
 "}}}
 
@@ -96,51 +90,28 @@ function! dash#search(bang, ...) "{{{
     let filetype = get(split(&filetype, '\.'), -1, '')
     if exists('b:dash_keywords')
       if v:count == 0
-        let keywords = b:dash_keywords
+        call add(keywords, filetype)
+        call extend(keywords, b:dash_keywords)
       else
         let position = v:count1 - 1
         let keyword = get(b:dash_keywords, position, filetype)
         call add(keywords, keyword)
       endif
     else
-      let keyword = get(s:aliases, filetype, filetype)
-      call add(keywords, keyword)
+      call add(keywords, filetype)
     endif
   endif
-  call filter(keywords, 'index(s:cache.keywords(), v:val) != -1')
-  call s:search(term, keywords)
-endfunction
-"}}}
-
-function! dash#settings() "{{{
-  redraw
-  for profile in s:cache.profiles
-    let docsets = join(map(copy(profile.docsets), "v:val.name"), ', ')
-    echo 'Profile: ' . profile.name . '; Keyword: ' . profile.keyword .
-          \ '; Docsets: ' . docsets
-  endfor
-  for docset in s:cache.docsets
-    echo 'Docset: ' . docset.name . '; Keyword: ' . docset.keyword()
-  endfor
+  call s:search(term, uniq(sort(keywords)))
 endfunction
 "}}}
 
 function! s:add_buffer_keywords(keyword_list) "{{{
-  let keywords = map(copy(a:keyword_list), 'get(s:aliases, v:val, v:val)')
-  call filter(keywords, 'index(s:cache.keywords(), v:val) != -1')
+  let keywords = a:keyword_list
   if exists('b:dash_keywords')
     call extend(b:dash_keywords, keywords)
     return
   endif
   let b:dash_keywords = keywords
-endfunction
-"}}}
-
-function! s:extend_aliases() "{{{
-  if !exists('g:dash_map') || type(g:dash_map) != 4
-    return
-  endif
-  call extend(s:aliases, g:dash_map)
 endfunction
 "}}}
 
@@ -165,5 +136,3 @@ function! s:show_buffer_keywords() "{{{
   endif
 endfunction
 "}}}
-
-call s:extend_aliases()
