@@ -39,6 +39,27 @@ endfunction
 "}}}
 
 let s:groups = dash#defaults#module.groups
+if !exists('g:dash_map_loaded') && exists('g:dash_map') && type(g:dash_map) == type({})
+    for pair in items(g:dash_map)
+        let ftype = pair[0]
+        let docsets = pair[1]
+
+        if (type(docsets) == type([]))
+            let s:groups[ftype] = docsets
+        elseif (type(docsets) == type(""))
+            if (!has_key(s:groups, ftype))
+                let s:groups[ftype] = []
+            else
+                call filter(s:groups[ftype], 'v:val != "' . docsets . '"')
+            endif
+            call insert(s:groups[ftype], docsets)
+        endif
+
+        unlet ftype
+        unlet docsets
+    endfor
+    let g:dash_map_loaded = 1
+endif
 
 function! dash#add_keywords_for_filetype(filetype) "{{{
   let keywords = get(s:groups, a:filetype, [])

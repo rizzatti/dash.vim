@@ -138,17 +138,44 @@ For example, add this to your |.vimrc|:
 
 Allows configuration of mappings between Vim filetypes and Dash's docsets.
 
+The variable must be a dictionary where the key is the Vim filetype you want 
+to associate and the value can be one of two kinds:
+
+List                       If the value associated with the key is a list, 
+                           than the default list of docsets used by the given 
+                           filetype is replaced by the one user defined.
+
+String                     If the value associated with the key is a simple 
+                           string, than the given docset is prepended on the 
+                           list of available docsets to the given filetype.
+
 Example:
+
+The default java docsets defined in dash.vim is this:
+>
+      ['java', 'javafx', 'grails', 'groovy', 'playjava', 'spring', 'cvj',
+       'processing', 'javadoc']
+<
+If you have this in your .vimrc:
 >
     let g:dash_map = {
-        \ 'ruby'       : 'rails',
-        \ 'python'     : 'python2',
-        \ 'javascript' : 'backbone'
+        \ 'java' : 'android'
         \ }
 <
-This setting will make searches in filetypes in the 1st column be directed to
-the docsets in the 2nd column in Dash, when they are not specified as the 2nd
-option to |:Dash| or used through the <Plug> mappings.
+The java docset will be:
+>
+      ['android', 'java', 'javafx', 'grails', 'groovy', 'playjava',
+       'spring', 'cvj', 'processing', 'javadoc']
+<
+Now if I don't want the extra docsets to be used when I'm editing a java file, 
+I could have:
+>
+    let g:dash_map = {
+        \ 'java' : ['android', 'java']
+        \ }
+<
+This would make java files have only "Android" and "Java" docsets to search 
+on.
 
 ==============================================================================
 5. License                                                       *DashLicense*
