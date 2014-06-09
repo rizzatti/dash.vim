@@ -101,7 +101,7 @@ function! dash#search(bang, ...) "{{{
       call add(keywords, filetype)
     endif
   endif
-  call s:search(term, uniq(sort(keywords)))
+  call s:search(term, sort(keywords))
 endfunction
 "}}}
 
