@@ -19,7 +19,6 @@ CONTENTS                                                      *DashContents*
     2.1 Commands .................. |DashCommands|
         2.1 :Dash[!] .............. |:Dash|
         2.2 :DashKeywords ......... |:DashKeywords|
-        2.2 :DashSettings ......... |:DashSettings|
     3. Mappings ................... |DashMappings|
         3.1 Key bindings .......... |DashKeyBindings|
     4. Configuration .............. |DashConfig|
@@ -100,14 +99,6 @@ Examples:
     Tip: If you have bound <Plug>DashSearch, as in the example below, hitting
     '2<Leader>d' will search the 2nd docset ('underscore') and '3<Leader>d'
     will search the 3rd docset ('javascript'), for this example.
-
-------------------------------------------------------------------------------
-2.3 :DashSettings                                              *:DashSettings*
-
-Shows a summary of the following settings in Dash.app:
-
-* List of profiles triggered by keyword search and the docsets searched in it.
-* List of docsets and keyword used to search inside it.
 
 ==============================================================================
 3. Mappings                                                     *DashMappings*
