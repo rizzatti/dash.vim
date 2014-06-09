@@ -106,11 +106,11 @@ endfunction
 "}}}
 
 function! s:add_buffer_keywords(keyword_list) "{{{
-  let keywords = a:keyword_list
+  let keywords = []
   if exists('b:dash_keywords')
-    call extend(b:dash_keywords, keywords)
-    return
+    let keywords = b:dash_keywords
   endif
+  call extend(keywords, a:keyword_list)
   let b:dash_keywords = keywords
 endfunction
 "}}}
