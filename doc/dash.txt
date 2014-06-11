@@ -51,7 +51,7 @@ priceless. This is what this plugin is about.
 
 Searches for the given term in specific docsets or in all of them. A keyword
 is a specific setting configured in Dash.app's Preferences that associates
-either either to a docset or a profile to a group of docsets.
+either to a docset or a profile to a group of docsets.
 
 Usage:
     >
