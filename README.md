@@ -17,7 +17,7 @@ Read the [help][vim-doc] to know more.
 
 ### Using [Vundle][vundle]:
 
-Just add this 2 lines to your `~/.vimrc`:
+Just add this line to your `~/.vimrc`:
 
 ```vim
 Bundle 'rizzatti/dash.vim'
@@ -36,7 +36,7 @@ git clone https://github.com/rizzatti/dash.vim.git
 
 ### Using [vpm][vpm]:
 
-Run these two commands in your shell:
+Run this command in your shell:
 
 ```bash
 vpm insert rizzatti/dash.vim
