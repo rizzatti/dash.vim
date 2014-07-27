@@ -36,8 +36,8 @@ Going back and forth from your editor to your browser, searching for some term
 in that tab for the API docs for the language/framework you are working with
 can be a real pain in the behind.
 
-Dash.app made things simpler by agreggating a bunch of documentation from
-diverse sources into a single database that was easily queriable, but you
+Dash.app made things simpler by aggregating a bunch of documentation from
+diverse sources into a single database that was easily queryable, but you
 still had to alternate to it, and paste/write the thing you were looking for.
 
 Having the docs for the word under the cursor, from inside Vim, is just
@@ -92,7 +92,7 @@ Examples:
     >
     :DashKeywords backbone underscore javascript
 <
-    Sets the prefered docsets for lookup for the current buffer, in the given
+    Sets the preferred docsets for lookup for the current buffer, in the given
     order. Any following usages of |:Dash| where the 2nd argument is not
     provided will use default to searching 'backbone's docset.
 
