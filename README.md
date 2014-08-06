@@ -20,10 +20,10 @@ Read the [help][vim-doc] to know more.
 Just add this line to your `~/.vimrc`:
 
 ```vim
-Bundle 'rizzatti/dash.vim'
+Plugin 'rizzatti/dash.vim'
 ```
 
-And run `:BundleInstall` inside Vim.
+And run `:PluginInstall` inside Vim.
 
 ### Using [pathogen.vim][pathogen]:
 
