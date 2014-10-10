@@ -158,7 +158,7 @@ The java docset will be:
       ['android', 'java', 'javafx', 'grails', 'groovy', 'playjava',
        'spring', 'cvj', 'processing', 'javadoc']
 <
-Now if you don't want the extra docsets to be used when your editing a java file, 
+Now if you don't want the extra docsets to be used when you're editing a java file, 
 You could have:
 >
     let g:dash_map = {
