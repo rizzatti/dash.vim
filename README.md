@@ -48,6 +48,6 @@ MIT
 
 [Dash]: http://kapeli.com/
 [pathogen]: https://github.com/tpope/vim-pathogen
-[vim-doc]: http://vim-doc.heroku.com/view?https://raw.githubusercontent.com/rizzatti/dash.vim/master/doc/dash.txt
+[vim-doc]: https://raw.githubusercontent.com/rizzatti/dash.vim/master/doc/dash.txt
 [vpm]: https://github.com/KevinSjoberg/vpm
 [vundle]: https://github.com/gmarik/vundle
