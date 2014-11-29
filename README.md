@@ -42,6 +42,16 @@ Run this command in your shell:
 vpm insert rizzatti/dash.vim
 ```
 
+### Using [Plug][plug]:
+
+Just add this line to your `~/.vimrc` inside plug call:
+
+```vim
+Plug 'rizzatti/dash.vim'
+```
+
+And run `:PlugInstall` inside Vim or `vim +PlugInstall +qa` from shell.
+
 ## License
 
 MIT
@@ -51,3 +61,4 @@ MIT
 [vim-doc]: http://vim-doc.heroku.com/view?https://raw.githubusercontent.com/rizzatti/dash.vim/master/doc/dash.txt
 [vpm]: https://github.com/KevinSjoberg/vpm
 [vundle]: https://github.com/gmarik/vundle
+[plug]: https://github.com/junegunn/vim-plug
