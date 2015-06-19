@@ -4,12 +4,26 @@ set -e
 
 APPLESCRIPT=`cat <<EOF
 try
-  tell application "Finder"
-    set appname to name of application file id "com.kapeli.dash"
-    return 1
-  end tell
+	tell application "Finder"
+		set appname to name of application file id "com.kapeli.dash"
+		return 1
+	end tell
 on error err_msg number err_num
-  return 0
+	try
+		tell application "Finder"
+			set appname to name of application file id "com.kapeli.dashdoc"
+			return 1
+		end tell
+	on error err_msg number err_num
+		try
+			tell application "Finder"
+				set appname to name of application file id "com.kapeli.dashbeta"
+				return 1
+			end tell
+		on error err_msg number err_num
+			return 0
+		end try
+	end try
 end try
 EOF`
 
