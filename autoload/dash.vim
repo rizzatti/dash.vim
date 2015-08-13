@@ -147,7 +147,7 @@ function! s:search(term, keywords) "{{{
   endif
   let query = 'query=' . a:term
   let url = 'dash-plugin://' . shellescape(keys . query)
-  silent execute '!open ' . url
+  silent execute '!open -g ' . url
   redraw!
 endfunction
 "}}}
