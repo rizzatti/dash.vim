@@ -11,7 +11,7 @@ however, but it will not load.
 
 ## Commands, Mappings and Configuration
 
-Read the [help][vim-doc] to know more.
+Read the [help][txt-doc] to know more.
 
 ## Installation
 
@@ -58,7 +58,7 @@ MIT
 
 [Dash]: http://kapeli.com/
 [pathogen]: https://github.com/tpope/vim-pathogen
-[vim-doc]: https://vim-doc.herokuapp.com/view?https://raw.githubusercontent.com/rizzatti/dash.vim/master/doc/dash.txt
+[txt-doc]: https://raw.githubusercontent.com/rizzatti/dash.vim/master/doc/dash.txt
 [vpm]: https://github.com/KevinSjoberg/vpm
 [vundle]: https://github.com/gmarik/vundle
 [plug]: https://github.com/junegunn/vim-plug
