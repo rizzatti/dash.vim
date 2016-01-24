@@ -74,7 +74,11 @@ function! s:add_buffer_keywords(bang, keyword_list) "{{{
   if empty(a:bang) && exists('b:dash_keywords')
     let keywords = b:dash_keywords
   endif
-  call extend(keywords, a:keyword_list)
+  for item in a:keyword_list
+    if index(keywords, item) == -1
+       let keywords = add(keywords, item)
+    endif
+  endfor
   let b:dash_keywords = keywords
 endfunction
 "}}}
