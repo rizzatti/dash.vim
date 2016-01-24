@@ -18,7 +18,7 @@ CONTENTS                                                      *DashContents*
     1. Intro ...................... |DashIntro|
     2.1 Commands .................. |DashCommands|
         2.1 :Dash[!] .............. |:Dash|
-        2.2 :DashKeywords ......... |:DashKeywords|
+        2.2 :DashKeywords[!] ...... |:DashKeywords|
     3. Mappings ................... |DashMappings|
         3.1 Key bindings .......... |DashKeyBindings|
     4. Configuration .............. |DashConfig|
@@ -84,21 +84,30 @@ Examples:
     Will search for 'func' in all docsets.
 
 ------------------------------------------------------------------------------
-2.2 :DashKeywords                                              *:DashKeywords*
+2.2 :DashKeywords[!]                                           *:DashKeywords*
 
-This command can be used to set keywords to be used in the current buffer.
+This command can be used to show the current buffer keywords or set keywords.
 
 Examples:
     >
-    :DashKeywords backbone underscore javascript
+    :DashKeywords
+<
+    Shows the current buffer list of used keywords.
+    >
+    :DashKeywords! backbone underscore javascript
 <
     Sets the preferred docsets for lookup for the current buffer, in the given
     order. Any following usages of |:Dash| where the 2nd argument is not
-    provided will use default to searching 'backbone's docset.
+    provided will use, as the default, to searching 'backbone's docset (the
+    first docset in the list above).
 
     Tip: If you have bound <Plug>DashSearch, as in the example below, hitting
     '2<Leader>d' will search the 2nd docset ('underscore') and '3<Leader>d'
     will search the 3rd docset ('javascript'), for this example.
+    >
+    :DashKeywords rails
+<
+    Adds the rails docset to the list of keywords to search for.
 
 ==============================================================================
 3. Mappings                                                     *DashMappings*

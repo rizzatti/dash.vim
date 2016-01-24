@@ -67,11 +67,11 @@ function! dash#complete(arglead, cmdline, cursorpos) "{{{
 endfunction
 "}}}
 
-function! dash#keywords(...) "{{{
+function! dash#keywords(bang, ...) "{{{
   if a:0 == 0
     call s:show_buffer_keywords()
   else
-    call s:add_buffer_keywords(a:000)
+    call s:add_buffer_keywords(a:bang, a:000)
   endif
 endfunction
 "}}}
@@ -105,9 +105,9 @@ function! dash#search(bang, ...) "{{{
 endfunction
 "}}}
 
-function! s:add_buffer_keywords(keyword_list) "{{{
+function! s:add_buffer_keywords(bang, keyword_list) "{{{
   let keywords = []
-  if exists('b:dash_keywords')
+  if empty(a:bang) && exists('b:dash_keywords')
     let keywords = b:dash_keywords
   endif
   call extend(keywords, a:keyword_list)
