@@ -54,7 +54,6 @@ function! dash#search(bang, ...) "{{{
     let filetype = get(split(&filetype, '\.'), -1, '')
     if exists('b:dash_keywords')
       if v:count == 0
-        call add(keywords, filetype)
         call extend(keywords, b:dash_keywords)
       else
         let position = v:count1 - 1
