@@ -6,7 +6,7 @@ let s:groups = dash#defaults#module.groups
 
 function! dash#add_keywords_for_filetype(filetype) "{{{
   let keywords = get(s:groups, a:filetype, [])
-  call s:add_buffer_keywords(keywords)
+  call s:add_buffer_keywords("", keywords)
 endfunction
 "}}}
 
