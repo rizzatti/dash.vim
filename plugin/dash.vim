@@ -46,5 +46,9 @@ if !exists('g:dash_autocommands')
   call dash#autocommands()
 endif
 
+if !exists('g:dash_activate')
+  let g:dash_activate = 1
+endif
+
 let &cpoptions = s:save_cpoptions
 unlet s:save_cpoptions

@@ -110,7 +110,12 @@ function! s:search(term, keywords) "{{{
     let keys = 'keys=' . join(a:keywords, ',') . '&'
   endif
   let query = 'query=' . a:term
-  let url = 'dash-plugin://' . shellescape(keys . query)
+  if (exists('g:dash_activate') && g:dash_activate == 0)
+    let activation = '&prevent_activation=true'
+  else
+    let activation = ''
+  endif
+  let url = 'dash-plugin://' . shellescape(keys . query . activation)
   silent execute '!open -g ' . url
   redraw!
 endfunction
