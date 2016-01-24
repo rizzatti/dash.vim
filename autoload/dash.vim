@@ -2,42 +2,6 @@
 " Author: José Otávio Rizzatti <zehrizzatti@gmail.com>
 " License: MIT
 
-"{{{ Creates dummy versions of entry points if Dash.app is not present
-function! s:check_for_dash()
-  let script = expand('<sfile>:h:h') . '/script/check_for_dash.sh'
-  call system(script)
-  if v:shell_error " script returns 1 == Dash is present
-    return
-  endif
-
-  function! s:dummy()
-    redraw
-    echohl WarningMsg
-    echomsg 'dash.vim: Dash.app does not seem to be installed.'
-    echohl None
-  endfunction
-
-  function! dash#add_keywords_for_filetype(...)
-  endfunction
-
-  function! dash#autocommands(...)
-  endfunction
-
-  function! dash#complete(...)
-  endfunction
-
-  function! dash#keywords(...)
-    call s:dummy()
-  endfunction
-
-  function! dash#search(...)
-    call s:dummy()
-  endfunction
-
-  finish
-endfunction
-"}}}
-
 let s:groups = dash#defaults#module.groups
 
 function! dash#add_keywords_for_filetype(filetype) "{{{
