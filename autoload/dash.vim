@@ -75,7 +75,7 @@ function! s:add_buffer_keywords(bang, keyword_list) "{{{
   endif
   for item in a:keyword_list
     if index(keywords, item) == -1
-       let keywords = add(keywords, item)
+       call add(keywords, item)
     endif
   endfor
   let b:dash_keywords = keywords
