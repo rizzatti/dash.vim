@@ -6,7 +6,7 @@ if exists('loaded_dash') || &compatible || v:version < 700
   finish
 endif
 
-if has('win32') || match(system('uname'), 'Darwin') == -1
+if !has('unix') " OS X's vim and MacVim have this feature
   finish
 endif
 let loaded_dash = 1
