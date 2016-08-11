@@ -40,6 +40,7 @@ let s:module.groups = {
       \ 'sh' : ['bash', 'manpages'],
       \ 'sql' : ['mysql', 'sqlite', 'psql'],
       \ 'tcl' : ['tcl'],
+      \ 'tex' : ['latex'],
       \ 'yaml' : ['chef', 'ansible']
       \ }
 
