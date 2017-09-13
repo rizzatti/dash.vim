@@ -5,6 +5,8 @@ This Vim plugin will search for terms using the excellent [Dash.app][Dash]
 
 It provides a new :Dash family of commands and (recommended) mappings.
 
+[Watch this video demo][video]
+
 WARNING: [Dash.app][Dash] is a Mac only application, so you will not benefit
 from using dash.vim on Linux nor Windows. It can be installed on those systems
 however, but it will not load.
@@ -62,3 +64,4 @@ MIT
 [vpm]: https://github.com/KevinSjoberg/vpm
 [vundle]: https://github.com/gmarik/vundle
 [plug]: https://github.com/junegunn/vim-plug
+[video]: https://github.com/Anzumana/dash.vim
