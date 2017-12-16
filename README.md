@@ -52,6 +52,16 @@ Plug 'rizzatti/dash.vim'
 
 And run `:PlugInstall` inside Vim or `vim +PlugInstall +qa` from shell.
 
+### Using [vim-addon-manager][vim-addon-manager]:
+
+Just add this lines to your `~/.vimrc` inside VAM activation code and restart vim:
+
+```vim
+if has('osx')
+  VAMActivate github:rizzatti/dash.vim
+endif
+```
+
 ## License
 
 MIT
@@ -62,3 +72,4 @@ MIT
 [vpm]: https://github.com/KevinSjoberg/vpm
 [vundle]: https://github.com/gmarik/vundle
 [plug]: https://github.com/junegunn/vim-plug
+[vim-addon-manager]: https://github.com/MarcWeber/vim-addon-manager
