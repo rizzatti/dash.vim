@@ -40,8 +40,13 @@ function! dash#keywords(bang, ...) "{{{
 endfunction
 "}}}
 
-function! dash#search(bang, ...) "{{{
-  let term = get(a:000, 0, expand('<cword>'))
+function! dash#search(bang, search_mode, ...) "{{{
+  if a:search_mode == 'v'
+    let term = getline("'<")[getpos("'<")[2]-1:getpos("'>")[2]-1]
+  else
+    let term = get(a:000, 0, expand('<cword>'))
+  endif
+
   let keywords = []
   if !empty(a:bang) " global search
     call s:search(term, keywords)
