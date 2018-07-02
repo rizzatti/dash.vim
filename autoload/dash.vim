@@ -41,7 +41,7 @@ endfunction
 "}}}
 
 function! dash#search(bang, search_mode, ...) "{{{
-  if a:search_mode == 'v'
+  if a:search_mode == 'visual'
     let term = getline("'<")[getpos("'<")[2]-1:getpos("'>")[2]-1]
   else
     let term = get(a:000, 0, expand('<cword>'))
