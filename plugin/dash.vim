@@ -21,11 +21,11 @@ if exists(':Dash') == 2
   echohl None
 else
   command -bang -complete=customlist,dash#complete -nargs=* -count=1 Dash call dash#search("<bang>", 'n', <f-args>)
-  command -bang -complete=customlist,dash#complete -nargs=* -count=1 DashV call dash#search("<bang>", 'v', <f-args>)
+  command -bang -complete=customlist,dash#complete -nargs=* -count=1 DashVisual call dash#search("<bang>", 'v', <f-args>)
 
   "{{{ <Plug> mappings
   noremap <script> <unique> <Plug>DashSearch :Dash<CR>
-  noremap <script> <unique> <Plug>DashVisual :DashV<CR>
+  noremap <script> <unique> <Plug>DashVisual :DashVisual<CR>
   noremap <script> <unique> <Plug>DashGlobalSearch :Dash!<CR>
   "}}}
 endif
