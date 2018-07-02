@@ -20,13 +20,13 @@ if exists(':Dash') == 2
   echomsg 'dash.vim: could not create command Dash'
   echohl None
 else
-  command -bang -complete=customlist,dash#complete -nargs=* -count=1 Dash call dash#search("<bang>", <f-args>)
+  command -bang -complete=customlist,dash#complete -nargs=* -count=1 Dash call dash#search("<bang>", 'normal', <f-args>)
+  command -bang -complete=customlist,dash#complete -nargs=* -count=1 DashVisual call dash#search("<bang>", 'visual', <f-args>)
 
   "{{{ <Plug> mappings
-  noremap <script> <unique> <Plug>DashSearch <SID>DashSearch
-  noremap <SID>DashSearch :Dash<CR>
-  noremap <script> <unique> <Plug>DashGlobalSearch <SID>DashGlobalSearch
-  noremap <SID>DashGlobalSearch :Dash!<CR>
+  noremap <script> <unique> <Plug>DashSearch :Dash<CR>
+  noremap <script> <unique> <Plug>DashVisual :DashVisual<CR>
+  noremap <script> <unique> <Plug>DashGlobalSearch :Dash!<CR>
   "}}}
 endif
 "}}}

@@ -65,6 +65,11 @@ Examples:
     Will search for the word under the cursor in the docset corresponding to
     the current filetype.
     >
+    :DashVisual
+<
+    Will search for visually selected text in the docset corresponding to
+    the current filetype
+    >
     :Dash printf
 <
     Will search for the word 'printf' in the docset corresponding to the
@@ -122,12 +127,17 @@ This plugin provides helpful mappings for common use cases.
                               considering the current keyword setup for
                               docset lookup.
 
+<Plug>DashVisual            Searches for the text currently selected in
+                              visual mode, considering the current keyword
+                              setup for docset lookup.
+
 <Plug>DashGlobalSearch      Searches for the |word| under the cursor in all
                               docsets.
 
 For example, add this to your |.vimrc|:
     >
     :nmap <silent> <leader>d <Plug>DashSearch
+    :vmap <silent> <leader>d <Plug>DashVisual
 <
     Note: Using |:noremap| will not work with <Plug> mappings.
 
