@@ -118,9 +118,22 @@ function! s:search(term, keywords) "{{{
   else
     let activation = ''
   endif
-  let url = 'dash-plugin://' . shellescape(keys . query . activation)
-  silent execute '!open -g ' . url
-  redraw!
+
+  if has('job')
+    " Vim with +job feature enabled
+    let url = 'dash-plugin://' . keys . query . activation
+    let command = 'open -g ' . url
+    let job = job_start(command, {"err_cb": function("s:handle_open_command_err")})
+  else
+    let url = 'dash-plugin://' . shellescape(keys . query . activation)
+    silent execute '!open -g ' . url
+    redraw!
+  endif
+endfunction
+"}}}
+
+function! s:handle_open_command_err(channel, msg) "{{{
+    echoerr a:msg
 endfunction
 "}}}
 
