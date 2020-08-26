@@ -124,7 +124,6 @@ function! s:search(term, keywords) "{{{
     let url = 'dash-plugin://' . keys . query . activation
     let command = 'open -g ' . url
     let job = job_start(command, {"err_cb": function("s:handle_open_command_err")})
-    let channel = job_getchannel(job)
   else
     let url = 'dash-plugin://' . shellescape(keys . query . activation)
     silent execute '!open -g ' . url
