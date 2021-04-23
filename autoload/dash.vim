@@ -119,7 +119,13 @@ function! s:search(term, keywords) "{{{
     let activation = ''
   endif
   let url = 'dash-plugin://' . shellescape(keys . query . activation)
-  silent execute '!open -g ' . url
+
+  if exists('g:dash_remote_domain')
+    silent execute '!ssh ' . d:dash_remote_domain . ' "open -g' . url . '"'
+  else
+    silent execute '!open -g' . url
+  endif
+
   redraw!
 endfunction
 "}}}

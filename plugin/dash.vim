@@ -6,7 +6,7 @@ if exists('loaded_dash') || &compatible || v:version < 700
   finish
 endif
 
-if !has('unix') " OS X's vim and MacVim have this feature
+if !has('unix') && !exists('g:dash_remote_domain') " OS X's vim and MacVim have this feature
   finish
 endif
 let loaded_dash = 1
