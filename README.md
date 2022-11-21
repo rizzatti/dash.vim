@@ -15,6 +15,15 @@ Read the [help][txt-doc] to know more.
 
 ## Installation
 
+### Using Vim 8's built-in packages support
+
+```
+mkdir -p ~/.vim/pack/whatever/start
+cd ~/.vim/pack/whatever/start
+git clone https://github.com/rizzatti/dash.vim.git
+vim -u NONE -c "helptags dash.vim/doc" -c q
+```
+
 ### Using [Vundle][vundle]:
 
 Just add this line to your `~/.vimrc`:
